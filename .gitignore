@@ -34,3 +34,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# resume PDFs — not committed, must be added manually
+public/resumes/
+
+# three.js source (600MB dev reference — not part of the site)
+three.js-master/
+
+# design reference screenshots (root-level, not part of the site)
+exp-*.png
+hero-*.png
+light-*.png
+mobile-*.png
+experience-*.png
+
+# internal dev notes
+docs/
+
+# Claude project instructions (dev-only)
+CLAUDE.md
