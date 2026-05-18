@@ -63,7 +63,7 @@ function ProjectDrawer({
         <div className="max-w-4xl mx-auto px-8 py-12">
           {project.imageSrc && (
             <div style={{ width: "100%", marginBottom: "2rem" }}>
-              <Image src={project.imageSrc} alt={project.title} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto", display: "block" }} />
+              <Image src={`${process.env.NEXT_PUBLIC_BASEPATH ?? ""}${project.imageSrc}`} alt={project.title} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           )}
           <div className="flex items-start justify-between gap-8 mb-6">
@@ -236,7 +236,7 @@ export default function Projects() {
                   </span>
                   {p.imageSrc && (
                     <div style={{ width: 56, height: 56, flexShrink: 0, position: "relative", overflow: "hidden", borderRadius: 4, border: "1px solid var(--border)" }}>
-                      <Image src={p.imageSrc} alt="" fill sizes="56px" style={{ objectFit: "cover" }} />
+                      <Image src={`${process.env.NEXT_PUBLIC_BASEPATH ?? ""}${p.imageSrc}`} alt="" fill sizes="56px" style={{ objectFit: "cover" }} />
                     </div>
                   )}
                   <div className="flex-1 min-w-0">

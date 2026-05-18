@@ -54,7 +54,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
           transition={{ duration: 0 }}
         >
           <Image
-            src={imageSrc}
+            src={`${process.env.NEXT_PUBLIC_BASEPATH ?? ""}${imageSrc}`}
             alt=""
             fill
             sizes="100vw"
@@ -76,7 +76,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
             boxShadow: `0 0 ${40 + progress * 60}px rgba(0,0,0,0.5)`,
           }}>
             <Image
-              src={imageSrc}
+              src={`${process.env.NEXT_PUBLIC_BASEPATH ?? ""}${imageSrc}`}
               alt={title}
               fill
               sizes="(max-width: 768px) 92vw, 95vw"

@@ -1,6 +1,8 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+
+const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
 import SectionLabel from "./SectionLabel";
 import { SplineScene } from "./SplineScene";
 import { useTheme } from "./ThemeProvider";
@@ -151,7 +153,7 @@ export default function Experience() {
                 {item.imageSrc ? (
                   <>
                     <Image
-                      src={item.imageSrc}
+                      src={`${BASE}${item.imageSrc}`}
                       alt=""
                       fill
                       sizes="55vw"
