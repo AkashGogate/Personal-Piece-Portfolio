@@ -7,6 +7,8 @@ import { animate } from "animejs";
 import { resumeVariants } from "@/data/resume";
 import { doNavigate } from "@/lib/navigate";
 
+const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
+
 const links = [
   { label: "Featured", href: "#featured-project" },
   { label: "About", href: "#about" },
@@ -159,7 +161,7 @@ export default function Nav() {
                 {resumeVariants.map((v) => (
                   <a
                     key={v.href}
-                    href={v.href}
+                    href={`${BASE}${v.href}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-body block px-4 py-3"
@@ -287,7 +289,7 @@ export default function Nav() {
                 {resumeVariants.map((v) => (
                   <a
                     key={v.href}
-                    href={v.href}
+                    href={`${BASE}${v.href}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-body block py-2"

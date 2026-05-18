@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { createTimeline, stagger } from "animejs";
 import { resumeVariants } from "@/data/resume";
 import { doNavigate } from "@/lib/navigate";
+
+const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
 import HeroCanvas from "./HeroCanvas";
 
 const LABEL = "Software Engineer · Researcher · AI / ML · Data";
@@ -180,7 +182,7 @@ export default function Hero() {
                 {resumeVariants.map((v) => (
                   <a
                     key={v.href}
-                    href={v.href}
+                    href={`${BASE}${v.href}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-body block px-5 py-3"

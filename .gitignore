@@ -35,8 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# resume PDFs — not committed, must be added manually
-public/resumes/
+# resume originals and master vault — not for public repo
+public/resumes/Gogate_Akash_Master_Vault.pdf
+public/resumes/resume-all.pdf
+public/resumes/Akash Gogate*.pdf
+public/resumes/Gogate Akash*.pdf
 
 # three.js source (600MB dev reference — not part of the site)
 three.js-master/
