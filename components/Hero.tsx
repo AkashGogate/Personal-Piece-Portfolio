@@ -115,7 +115,7 @@ export default function Hero() {
           className="font-body hero-body"
           style={{ fontSize: "0.97rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1.5rem" }}
         >
-          CS + Biology at UW-Madison. I build at the intersection because that is where the interesting problems live.
+          CS + Biology at UW-Madison | Computing for biology&apos;s next frontier.
         </p>
 
         <div className="hero-gh" style={{ opacity: 0, marginBottom: "1.75rem" }}>

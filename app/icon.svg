@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" ry="80" fill="#0e0e0e"/>
+
+  <!-- G: 270° arc, opens right, molecular arc reference -->
+  <path d="M 298 154 A 145 145 0 1 0 298 359"
+        fill="none" stroke="#52b788" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- G crossbar: extends inward from right opening midpoint -->
+  <line x1="298" y1="256" x2="228" y2="256"
+        stroke="#52b788" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- A left stroke (passes through G opening — the bond) -->
+  <line x1="345" y1="95" x2="248" y2="417"
+        stroke="#52b788" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- A right stroke -->
+  <line x1="345" y1="95" x2="442" y2="417"
+        stroke="#52b788" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- A crossbar -->
+  <line x1="289" y1="280" x2="401" y2="280"
+        stroke="#52b788" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Molecular bond node: where A left stroke meets G crossbar -->
+  <circle cx="297" cy="256" r="13" fill="#52b788"/>
+</svg>

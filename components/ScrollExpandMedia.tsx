@@ -15,8 +15,16 @@ interface Props {
 export default function ScrollExpandMedia({ imageSrc, title, id, children }: Props) {
   const outerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -33,7 +41,10 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
 
   const [word1, ...rest] = title.split(" ");
   const remaining = rest.join(" ");
-  const shift = `${progress * 18}vw`;
+  const shift = isMobile ? "0vw" : `${progress * 18}vw`;
+  const titleOpacity = Math.max(0, 1 - progress * 1.85);
+  const cardWidth = isMobile ? `${65 + progress * 27}vw` : `${15 + progress * 80}vw`;
+  const cardHeight = isMobile ? `${42 + progress * 40}vh` : `${35 + progress * 50}vh`;
 
   // Always light text — image overlay is always a dark context regardless of page theme
   const textColor = "#f0f0ee";
@@ -66,8 +77,8 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
 
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1 }}>
           <div style={{
-            width: `${15 + progress * 80}vw`,
-            height: `${35 + progress * 50}vh`,
+            width: cardWidth,
+            height: cardHeight,
             maxWidth: "92vw",
             maxHeight: "82vh",
             position: "relative",
@@ -79,12 +90,13 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
               src={`${process.env.NEXT_PUBLIC_BASEPATH ?? ""}${imageSrc}`}
               alt={title}
               fill
+              priority
               sizes="(max-width: 768px) 92vw, 95vw"
               style={{ objectFit: "cover", filter: isDark ? "none" : "saturate(0.92)" }}
             />
             <div style={{ position: "absolute", inset: 0, background: cardOverlay }} />
             <motion.div
-              animate={{ opacity: progress > 0.68 ? 1 : 0, y: progress > 0.68 ? 0 : 16 }}
+              animate={{ opacity: progress > 0.82 ? 1 : 0, y: progress > 0.82 ? 0 : 16 }}
               transition={{ duration: 0.5 }}
               style={{
                 position: "absolute",
@@ -101,7 +113,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
           </div>
         </div>
 
-        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none", opacity: titleOpacity }}>
           <span
             className="font-display"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 400, color: textColor, letterSpacing: "-0.02em", lineHeight: 1.1, transform: `translateX(-${shift})`, display: "block" }}

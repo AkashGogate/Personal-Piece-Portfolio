@@ -142,70 +142,123 @@ export default function Experience() {
                   width: isMobile ? "100%" : `${cardVw}vw`,
                   flexShrink: 0,
                   height: isMobile ? "auto" : "100%",
-                  minHeight: isMobile && item.imageSrc ? "75vh" : "auto",
                   position: "relative",
-                  border: isMobile && !item.imageSrc ? "1px solid var(--border)" : "none",
+                  border: isMobile ? "1px solid var(--border)" : "none",
                   ...(item.imageSrc
-                    ? { overflow: "hidden" }
-                    : { padding: isMobile ? "2rem" : "1.25rem 2rem 1.25rem 0", overflowY: isMobile ? "visible" : ("auto" as const) }),
+                    ? { overflow: isMobile ? "visible" : "hidden" }
+                    : { padding: isMobile ? "2rem 2rem 5rem" : "1.25rem 2rem 1.25rem 0", overflowY: isMobile ? "visible" : ("auto" as const) }),
                 }}
               >
                 {item.imageSrc ? (
-                  <>
-                    <Image
-                      src={`${BASE}${item.imageSrc}`}
-                      alt=""
-                      fill
-                      sizes="55vw"
-                      style={{ objectFit: "cover", filter: isDark ? "none" : "saturate(0.9)" }}
-                    />
-                    <div style={{
-                      position: "absolute", inset: 0,
-                      background: "linear-gradient(to top, rgba(4,4,4,0.98) 0%, rgba(4,4,4,0.88) 30%, rgba(4,4,4,0.65) 55%, rgba(4,4,4,0.25) 75%, rgba(4,4,4,0.0) 100%)",
-                    }} />
-                    <span aria-hidden="true" className="font-display" style={{ position: "absolute", top: "1.5rem", right: "1.5rem", fontSize: "clamp(4rem, 8vw, 10rem)", fontWeight: 700, color: isDark ? "rgba(240,240,238,0.22)" : "rgba(240,240,238,0.35)", lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div style={{ position: "absolute", inset: 0, padding: isMobile ? "1.5rem" : "2rem", overflowY: isMobile ? "visible" : "auto", display: "flex", flexDirection: "column" }}>
-                      <div style={{ marginTop: "auto" }}>
-                      <div className="section-label mb-2" style={{ color: "#52b788", fontSize: "0.85rem" }}>{item.category}</div>
-                      <h3 className="font-display" style={{ fontSize: "clamp(1.3rem, 5vw, 3rem)", fontWeight: 400, color: "#f0f0ee", lineHeight: 1.1, marginBottom: "0.3rem" }}>
-                        {item.company}
-                      </h3>
-                      <p className="font-body" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.02rem)", color: "rgba(240,240,238,0.75)", letterSpacing: "0.04em", marginBottom: "0.1rem" }}>
-                        {item.role}
-                      </p>
-                      <p className="font-body" style={{ fontSize: "0.95rem", color: "rgba(240,240,238,0.6)", letterSpacing: "0.04em", marginBottom: "1.1rem" }}>
-                        {item.period}
-                      </p>
-                      <div style={{ width: "2rem", borderTop: "1px solid rgba(240,240,238,0.25)", marginBottom: "0.9rem" }} />
-                      <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", marginBottom: "1.5rem" }}>
-                        {item.bullets.map((b, bi) => (
-                          <p key={bi} className="font-body" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.02rem)", color: "rgba(240,240,238,0.88)", lineHeight: 1.75 }}>
-                            {b}
-                          </p>
-                        ))}
+                  isMobile ? (
+                    // Mobile: image on top, content below — no absolute positioning, no overflow clipping
+                    <>
+                      <div style={{ position: "relative", height: "42vh", overflow: "hidden" }}>
+                        <Image
+                          src={`${BASE}${item.imageSrc}`}
+                          alt=""
+                          fill
+                          sizes="92vw"
+                          style={{ objectFit: "cover", filter: isDark ? "none" : "saturate(0.9)" }}
+                        />
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(4,4,4,0.88) 0%, rgba(4,4,4,0.3) 55%, transparent 100%)" }} />
+                        <span aria-hidden="true" className="font-display" style={{ position: "absolute", top: "0.75rem", right: "0.75rem", fontSize: "2rem", fontWeight: 700, color: "rgba(240,240,238,0.22)", lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
                       </div>
-                      {item.tags && item.tags.length > 0 && (
-                        <div>
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
-                            {item.tags.map((tag) => (
-                              <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.25)", color: "rgba(240,240,238,0.7)" }}>
-                                {tag}
-                              </span>
+                      <div style={{ padding: "1.5rem", background: "rgba(8,8,8,0.97)" }}>
+                        <div className="section-label mb-2" style={{ color: "#52b788", fontSize: "0.85rem" }}>{item.category}</div>
+                        <h3 className="font-display" style={{ fontSize: "1.45rem", fontWeight: 400, color: "#f0f0ee", lineHeight: 1.15, marginBottom: "0.3rem" }}>
+                          {item.company}
+                        </h3>
+                        <p className="font-body" style={{ fontSize: "0.9rem", color: "rgba(240,240,238,0.75)", letterSpacing: "0.04em", marginBottom: "0.1rem" }}>
+                          {item.role}
+                        </p>
+                        <p className="font-body" style={{ fontSize: "0.9rem", color: "rgba(240,240,238,0.6)", letterSpacing: "0.04em", marginBottom: "1rem" }}>
+                          {item.period}
+                        </p>
+                        <div style={{ width: "2rem", borderTop: "1px solid rgba(240,240,238,0.2)", marginBottom: "0.9rem" }} />
+                        <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", marginBottom: "1.25rem" }}>
+                          {item.bullets.map((b, bi) => (
+                            <p key={bi} className="font-body" style={{ fontSize: "0.9rem", color: "rgba(240,240,238,0.85)", lineHeight: 1.7 }}>
+                              {b}
+                            </p>
+                          ))}
+                        </div>
+                        {item.tags && item.tags.length > 0 && (
+                          <div>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
+                              {item.tags.map((tag) => (
+                                <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.2)", color: "rgba(240,240,238,0.65)" }}>
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                            <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.45)" }}>
+                              Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    // Desktop: full overlay layout — unchanged
+                    <>
+                      <Image
+                        src={`${BASE}${item.imageSrc}`}
+                        alt=""
+                        fill
+                        sizes="55vw"
+                        style={{ objectFit: "cover", filter: isDark ? "none" : "saturate(0.9)" }}
+                      />
+                      <div style={{
+                        position: "absolute", inset: 0,
+                        background: "linear-gradient(to top, rgba(4,4,4,0.98) 0%, rgba(4,4,4,0.88) 30%, rgba(4,4,4,0.65) 55%, rgba(4,4,4,0.25) 75%, rgba(4,4,4,0.0) 100%)",
+                      }} />
+                      <span aria-hidden="true" className="font-display" style={{ position: "absolute", top: "1.5rem", right: "1.5rem", fontSize: "clamp(4rem, 8vw, 10rem)", fontWeight: 700, color: isDark ? "rgba(240,240,238,0.22)" : "rgba(240,240,238,0.35)", lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div style={{ position: "absolute", inset: 0, padding: "2rem", overflowY: "auto", display: "flex", flexDirection: "column" }}>
+                        <div style={{ marginTop: "auto" }}>
+                          <div className="section-label mb-2" style={{ color: "#52b788", fontSize: "0.85rem" }}>{item.category}</div>
+                          <h3 className="font-display" style={{ fontSize: "clamp(1.3rem, 5vw, 3rem)", fontWeight: 400, color: "#f0f0ee", lineHeight: 1.1, marginBottom: "0.3rem" }}>
+                            {item.company}
+                          </h3>
+                          <p className="font-body" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.02rem)", color: "rgba(240,240,238,0.75)", letterSpacing: "0.04em", marginBottom: "0.1rem" }}>
+                            {item.role}
+                          </p>
+                          <p className="font-body" style={{ fontSize: "0.95rem", color: "rgba(240,240,238,0.6)", letterSpacing: "0.04em", marginBottom: "1.1rem" }}>
+                            {item.period}
+                          </p>
+                          <div style={{ width: "2rem", borderTop: "1px solid rgba(240,240,238,0.25)", marginBottom: "0.9rem" }} />
+                          <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", marginBottom: "1.5rem" }}>
+                            {item.bullets.map((b, bi) => (
+                              <p key={bi} className="font-body" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.02rem)", color: "rgba(240,240,238,0.88)", lineHeight: 1.75 }}>
+                                {b}
+                              </p>
                             ))}
                           </div>
-                          <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.5)" }}>
-                            Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
-                          </p>
+                          {item.tags && item.tags.length > 0 && (
+                            <div>
+                              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
+                                {item.tags.map((tag) => (
+                                  <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.25)", color: "rgba(240,240,238,0.7)" }}>
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                              <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.5)" }}>
+                                Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      )}
                       </div>
-                    </div>
-                  </>
+                    </>
+                  )
                 ) : (
                   <>
-                    <span aria-hidden="true" className="font-display" style={{ position: "absolute", bottom: "1rem", right: "2rem", fontSize: "clamp(6rem, 12vw, 14rem)", fontWeight: 700, color: "var(--border)", opacity: 0.45, lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
+                    <span aria-hidden="true" className="font-display" style={{ position: "absolute", bottom: "1rem", right: isMobile ? "1rem" : "2rem", fontSize: isMobile ? "3rem" : "clamp(6rem, 12vw, 14rem)", fontWeight: 700, color: "var(--border)", opacity: 0.45, lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="section-label mb-2" style={{ color: "var(--mint)", fontSize: "0.85rem" }}>{item.category}</div>

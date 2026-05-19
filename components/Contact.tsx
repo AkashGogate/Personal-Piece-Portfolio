@@ -1,21 +1,107 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 
 const ease = [0.19, 1, 0.22, 1] as [number, number, number, number];
 
-const links = [
-  { label: "Email", value: "akash.gogate@gmail.com", href: "mailto:akash.gogate@gmail.com" },
-  { label: "UW–Madison", value: "agogate@wisc.edu", href: "mailto:agogate@wisc.edu" },
-  { label: "GitHub", value: "AkashGogate", href: "https://github.com/AkashGogate" },
-  { label: "LinkedIn", value: "akash-gogate-71bb81297", href: "https://www.linkedin.com/in/akash-gogate-71bb81297" },
+type LinkItem =
+  | { id: string; label: string; value: string; isEmail: true; gmail: string; outlook: string }
+  | { id: string; label: string; value: string; isEmail: false; href: string };
+
+const links: LinkItem[] = [
+  {
+    id: "email",
+    label: "Email",
+    value: "akash.gogate@gmail.com",
+    isEmail: true,
+    gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=akash.gogate@gmail.com",
+    outlook: "https://outlook.live.com/mail/0/deeplink/compose?to=akash.gogate@gmail.com",
+  },
+  {
+    id: "uw",
+    label: "UW–Madison",
+    value: "agogate@wisc.edu",
+    isEmail: true,
+    gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=agogate@wisc.edu",
+    outlook: "https://outlook.live.com/mail/0/deeplink/compose?to=agogate@wisc.edu",
+  },
+  { id: "github", label: "GitHub", value: "AkashGogate", isEmail: false, href: "https://github.com/AkashGogate" },
+  { id: "linkedin", label: "LinkedIn", value: "akash-gogate-71bb81297", isEmail: false, href: "https://www.linkedin.com/in/akash-gogate-71bb81297" },
 ];
+
+function EmailPicker({ link, onClose }: { link: Extract<LinkItem, { isEmail: true }>; onClose: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [onClose]);
+
+  const options = [
+    { label: "Open in Gmail", href: link.gmail },
+    { label: "Open in Outlook", href: link.outlook },
+  ];
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.12 }}
+      style={{
+        position: "absolute",
+        top: "calc(100% + 6px)",
+        left: 0,
+        background: "var(--bg)",
+        border: "1px solid var(--border)",
+        zIndex: 20,
+        minWidth: "180px",
+      }}
+    >
+      {options.map((opt) => (
+        <a
+          key={opt.label}
+          href={opt.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body block px-4 py-3"
+          style={{
+            fontSize: "0.72rem",
+            letterSpacing: "0.07em",
+            textTransform: "uppercase",
+            color: "var(--secondary)",
+            borderBottom: "1px solid var(--border)",
+            display: "block",
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.color = "var(--mint)";
+            el.style.background = "var(--surface)";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.color = "var(--secondary)";
+            el.style.background = "transparent";
+          }}
+          onClick={onClose}
+        >
+          {opt.label}
+        </a>
+      ))}
+    </motion.div>
+  );
+}
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: false, margin: "-80px" });
+  const [pickerOpen, setPickerOpen] = useState<string | null>(null);
 
   return (
     <section id="contact" ref={ref} style={{ background: "var(--bg)", position: "relative", overflow: "hidden", paddingTop: "clamp(3rem, 6vh, 6rem)", paddingBottom: "clamp(3rem, 6vh, 6rem)" }}>
@@ -35,11 +121,7 @@ export default function Contact() {
         <div className="overflow-hidden mb-6">
           <motion.h2
             className="font-display"
-            style={{
-              fontSize: "clamp(2.1rem, 3.5vw, 3.2rem)",
-              fontWeight: 400,
-              color: "var(--primary)",
-            }}
+            style={{ fontSize: "clamp(2.1rem, 3.5vw, 3.2rem)", fontWeight: 400, color: "var(--primary)" }}
             initial={{ y: "100%" }}
             animate={inView ? { y: "0%" } : {}}
             transition={{ duration: 0.7, delay: 0.06, ease }}
@@ -62,34 +144,60 @@ export default function Contact() {
         <div className="space-y-6">
           {links.map((l, i) => (
             <motion.div
-              key={l.label}
+              key={l.id}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 24,
-                delay: 0.22 + i * 0.07,
-              }}
+              transition={{ type: "spring", stiffness: 300, damping: 24, delay: 0.22 + i * 0.07 }}
             >
               <div className="section-label mb-1">{l.label}</div>
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-body"
-                style={{
-                  fontSize: "1.1rem",
-                  color: "var(--primary)",
-                  textDecoration: "underline",
-                  textDecorationColor: "var(--border)",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
-              >
-                {l.value}
-              </a>
+
+              {l.isEmail ? (
+                <div style={{ position: "relative", display: "inline-block" }}>
+                  <button
+                    className="font-body"
+                    style={{
+                      fontSize: "1.1rem",
+                      color: pickerOpen === l.id ? "var(--mint)" : "var(--primary)",
+                      textDecoration: "underline",
+                      textDecorationColor: pickerOpen === l.id ? "var(--mint)" : "var(--border)",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
+                    onClick={() => setPickerOpen(pickerOpen === l.id ? null : l.id)}
+                    onMouseEnter={(e) => {
+                      if (pickerOpen === l.id) return;
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.color = "var(--mint)";
+                      el.style.textDecorationColor = "var(--mint)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pickerOpen === l.id) return;
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.color = "var(--primary)";
+                      el.style.textDecorationColor = "var(--border)";
+                    }}
+                  >
+                    {l.value} ↓
+                  </button>
+                  {pickerOpen === l.id && (
+                    <EmailPicker link={l} onClose={() => setPickerOpen(null)} />
+                  )}
+                </div>
+              ) : (
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body"
+                  style={{ fontSize: "1.1rem", color: "var(--primary)", textDecoration: "underline", textDecorationColor: "var(--border)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
+                >
+                  {l.value}
+                </a>
+              )}
             </motion.div>
           ))}
         </div>

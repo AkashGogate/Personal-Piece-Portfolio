@@ -23,6 +23,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [showFab, setShowFab] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const { theme, toggle } = useTheme();
   const borderRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -59,6 +60,7 @@ export default function Nav() {
       }
       if (current !== activeSectionRef.current) {
         activeSectionRef.current = current;
+        setActiveSection(current);
         navLinksRef.current.forEach((a, i) => {
           if (!a) return;
           a.style.color = links[i].href.slice(1) === current ? "var(--mint)" : "var(--secondary)";
@@ -277,7 +279,7 @@ export default function Nav() {
                     fontSize: "0.75rem",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    color: "var(--secondary)",
+                    color: l.href.slice(1) === activeSection ? "var(--mint)" : "var(--secondary)",
                   }}
                   onClick={(e) => { e.preventDefault(); doNavigate(l.href); setOpen(false); }}
                 >

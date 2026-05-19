@@ -143,7 +143,15 @@ function ProjectDrawer({
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const mousePos = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const track = (e: MouseEvent) => { mousePos.current = { x: e.clientX, y: e.clientY }; };
@@ -199,10 +207,10 @@ export default function Projects() {
                   style={{
                     borderLeft: hoveredId === p.id
                       ? "2px solid var(--mint)"
-                      : "2px solid transparent",
-                    paddingLeft: hoveredId === p.id ? "1.25rem" : "0",
+                      : isMobile ? "2px solid var(--border)" : "2px solid transparent",
+                    paddingLeft: hoveredId === p.id || isMobile ? "1.25rem" : "0",
                     transition: "border-color 0.2s, padding-left 0.2s",
-                    willChange: "transform",
+                    willChange: isMobile ? "auto" : "transform",
                   }}
                   onClick={() => setSelected(p)}
                   onMouseEnter={() => setHoveredId(p.id)}
@@ -284,12 +292,12 @@ export default function Projects() {
                         className="font-body"
                         style={{
                           fontSize: "0.7rem",
-                          color: hoveredId === p.id ? "var(--mint)" : "var(--border)",
+                          color: isMobile ? "var(--secondary)" : hoveredId === p.id ? "var(--mint)" : "var(--border)",
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
                         }}
                       >
-                        Click to explore ↗
+                        {isMobile ? "Tap to explore ↗" : "Click to explore ↗"}
                       </span>
                       {p.github && (
                         <a

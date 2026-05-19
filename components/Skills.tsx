@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 import { skillGroups, projects, type Skill } from "@/data/resume";
@@ -157,10 +157,63 @@ function SkillCard({ skill, rect }: CardState) {
   );
 }
 
+function SkillAccordionContent({ skill }: { skill: Skill }) {
+  const relatedProjects = projects.filter((p) =>
+    p.tags.some((t) => normalize(t) === normalize(skill.name))
+  );
+  return (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ overflow: "hidden" }}
+    >
+      <div style={{ borderLeft: "2px solid var(--mint)", paddingLeft: "12px", paddingTop: "8px", paddingBottom: "12px", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+          <p style={{ fontSize: "0.67rem", color: "var(--mint)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500 }}>
+            {PROFICIENCY_LABEL[skill.proficiency]}
+          </p>
+          <ProficiencyDots level={skill.proficiency} />
+        </div>
+        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: relatedProjects.length > 0 ? 10 : 0 }}>
+          {skill.description}
+        </p>
+        {relatedProjects.length > 0 && (
+          <>
+            <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0" }} />
+            <p className="section-label" style={{ marginBottom: 5, fontSize: "0.62rem" }}>Used in</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+              {relatedProjects.map((p) => {
+                const label = p.title.split(" — ")[0].split(" (")[0];
+                const display = label.length > 32 ? label.slice(0, 30) + "…" : label;
+                return (
+                  <span key={p.id} className="font-body" style={{ fontSize: "0.72rem", color: "var(--secondary)", border: "1px solid var(--border)", padding: "2px 9px" }}>
+                    {display}
+                  </span>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: false, margin: "-80px" });
   const [card, setCard] = useState<CardState | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section
@@ -168,7 +221,7 @@ export default function Skills() {
       ref={ref}
       style={{ background: "var(--bg)", paddingTop: "clamp(3rem, 6vh, 7rem)", paddingBottom: "clamp(3rem, 6vh, 7rem)", position: "relative", overflow: "hidden" }}
     >
-      <AnimatePresence>{card && <SkillCard {...card} />}</AnimatePresence>
+      {!isMobile && <AnimatePresence>{card && <SkillCard {...card} />}</AnimatePresence>}
 
       <div className="max-w-7xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
         <motion.div
@@ -234,50 +287,76 @@ export default function Skills() {
                 <p className="section-label">{group.category}</p>
               </div>
 
-              <div style={{ display: "flex", flexWrap: "wrap", rowGap: "8px", alignItems: "center" }}>
-                {group.skills.map((skill, si) => (
-                  <span
-                    key={skill.name}
-                    style={{ display: "inline-flex", alignItems: "center" }}
-                  >
-                    <span
-                      className="font-body"
-                      style={{
-                        fontSize: "1.05rem",
-                        color: "var(--primary)",
-                        cursor: "default",
-                        letterSpacing: "0.01em",
-                        padding: "2px 0",
-                        userSelect: "none",
-                      }}
-                      onMouseEnter={(e) => {
-                        const el = e.currentTarget as HTMLElement;
-                        el.style.color = "var(--mint)";
-                        setCard({ skill, rect: el.getBoundingClientRect() });
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.color =
-                          "var(--primary)";
-                        setCard(null);
-                      }}
-                    >
-                      {skill.name}
-                    </span>
-                    {si < group.skills.length - 1 && (
-                      <span
+              {isMobile ? (
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  {group.skills.map((skill) => (
+                    <div key={skill.name}>
+                      <button
+                        className="font-body"
                         style={{
-                          color: "var(--border)",
-                          margin: "0 12px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "100%",
+                          padding: "7px 0",
+                          fontSize: "1.02rem",
+                          color: expanded === skill.name ? "var(--mint)" : "var(--primary)",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          letterSpacing: "0.01em",
+                          textAlign: "left",
                           userSelect: "none",
-                          fontSize: "1rem",
+                        }}
+                        onClick={() => setExpanded(expanded === skill.name ? null : skill.name)}
+                      >
+                        <span>{skill.name}</span>
+                        <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>
+                          {expanded === skill.name ? "▲" : "▼"}
+                        </span>
+                      </button>
+                      <AnimatePresence>
+                        {expanded === skill.name && <SkillAccordionContent skill={skill} />}
+                      </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexWrap: "wrap", rowGap: "8px", alignItems: "center" }}>
+                  {group.skills.map((skill, si) => (
+                    <span
+                      key={skill.name}
+                      style={{ display: "inline-flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="font-body"
+                        style={{
+                          fontSize: "1.05rem",
+                          color: "var(--primary)",
+                          cursor: "default",
+                          letterSpacing: "0.01em",
+                          padding: "2px 0",
+                          userSelect: "none",
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.color = "var(--mint)";
+                          setCard({ skill, rect: el.getBoundingClientRect() });
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.color = "var(--primary)";
+                          setCard(null);
                         }}
                       >
-                        ·
+                        {skill.name}
                       </span>
-                    )}
-                  </span>
-                ))}
-              </div>
+                      {si < group.skills.length - 1 && (
+                        <span style={{ color: "var(--border)", margin: "0 12px", userSelect: "none", fontSize: "1rem" }}>·</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </motion.div>
@@ -289,7 +368,7 @@ export default function Skills() {
           className="section-label"
           style={{ marginTop: "1rem" }}
         >
-          Hover any skill to explore
+          {isMobile ? "Tap any skill to explore" : "Hover any skill to explore"}
         </motion.p>
       </div>
     </section>
