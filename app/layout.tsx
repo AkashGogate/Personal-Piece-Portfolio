@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   title: "Akash Gogate — Software Engineer & Researcher",
   description:
     "CS + Biology student at UW-Madison. Building at the intersection of distributed systems and biological data science.",
-  icons: {
-    icon: "/icon.svg",
-  },
   openGraph: {
     title: "Akash Gogate",
     description: "Software Engineer & Researcher",
