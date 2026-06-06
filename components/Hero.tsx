@@ -145,7 +145,7 @@ export default function Hero() {
           </a>
 
           <a
-            href={`${BASE}/resumes/Gogate%20Akash%20Resum%C3%A9.pdf`}
+            href={`${BASE}/resumes/resume-general.pdf`}
             target="_blank"
             rel="noopener noreferrer"
             className="font-body text-sm px-5 py-2.5 border hero-btn"
