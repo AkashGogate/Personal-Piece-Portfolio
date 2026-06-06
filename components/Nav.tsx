@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { animate } from "animejs";
-import { resumeVariants } from "@/data/resume";
 import { doNavigate } from "@/lib/navigate";
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
@@ -21,7 +20,6 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const [resumeOpen, setResumeOpen] = useState(false);
   const [showFab, setShowFab] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { theme, toggle } = useTheme();
@@ -30,7 +28,6 @@ export default function Nav() {
   const headerRef = useRef<HTMLElement>(null);
   const navLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const activeSectionRef = useRef<string>("");
-  const resumeNavRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let shown = false;
@@ -77,16 +74,6 @@ export default function Nav() {
     headerRef.current.style.background = dark ? "rgba(17,17,16,0.88)" : "rgba(232,231,229,0.88)";
   }, [theme]);
 
-  useEffect(() => {
-    if (!resumeOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (resumeNavRef.current && !resumeNavRef.current.contains(e.target as Node)) {
-        setResumeOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [resumeOpen]);
 
   return (
     <>
@@ -133,69 +120,23 @@ export default function Nav() {
               />
             </a>
           ))}
-          <div ref={resumeNavRef} className="relative">
-            <button
-              type="button"
-              onClick={() => setResumeOpen((o) => !o)}
-              aria-expanded={resumeOpen}
-              aria-haspopup="true"
-              className="font-body"
-              style={{
-                fontSize: "0.75rem",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--primary)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                lineHeight: 1,
-              }}
-            >
-              Resume {resumeOpen ? "↑" : "↓"}
-            </button>
-            {resumeOpen && (
-              <div
-                className="absolute top-full right-0 mt-2 z-50"
-                style={{
-                  background: "var(--bg)",
-                  border: "1px solid var(--border)",
-                  minWidth: "180px",
-                }}
-              >
-                {resumeVariants.map((v) => (
-                  <a
-                    key={v.href}
-                    href={`${BASE}${v.href}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-body block px-4 py-3"
-                    style={{
-                      fontSize: "0.72rem",
-                      letterSpacing: "0.07em",
-                      textTransform: "uppercase",
-                      color: "var(--secondary)",
-                      borderBottom: "1px solid var(--border)",
-                    }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--mint)";
-                      el.style.background = "var(--surface)";
-                    }}
-                    onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--secondary)";
-                      el.style.background = "transparent";
-                    }}
-                    onClick={() => setResumeOpen(false)}
-                  >
-                    {v.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
+          <a
+            href={`${BASE}/resumes/resume-general.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body"
+            style={{
+              fontSize: "0.75rem",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--primary)",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
+          >
+            Resume
+          </a>
           <button
             type="button"
             onClick={toggle}
@@ -295,25 +236,22 @@ export default function Nav() {
                 </a>
               ))}
               <div style={{ borderTop: "1px solid var(--border)", paddingTop: "0.5rem", marginTop: "0.25rem" }}>
-                <div className="section-label mb-2" style={{ fontSize: "0.65rem" }}>Resume</div>
-                {resumeVariants.map((v) => (
-                  <a
-                    key={v.href}
-                    href={`${BASE}${v.href}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-body block py-2"
-                    style={{
-                      fontSize: "0.75rem",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: "var(--primary)",
-                    }}
-                    onClick={() => setOpen(false)}
-                  >
-                    {v.label}
-                  </a>
-                ))}
+                <a
+                  href={`${BASE}/resumes/resume-general.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body block py-2"
+                  style={{
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--primary)",
+                    textDecoration: "none",
+                  }}
+                  onClick={() => setOpen(false)}
+                >
+                  Resume
+                </a>
               </div>
             </div>
           </motion.div>
