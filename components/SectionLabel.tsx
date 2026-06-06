@@ -17,12 +17,17 @@ export default function SectionLabel({ number, label, className = "mb-4", style 
     const el = ref.current;
     if (!el) return;
     let raf = 0;
+    let tid = 0;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || ran.current) return;
+        if (!entry.isIntersecting) {
+          ran.current = false;
+          if (el) el.textContent = "00 / " + label;
+          return;
+        }
+        if (ran.current) return;
         ran.current = true;
-        obs.disconnect();
-        setTimeout(() => {
+        tid = window.setTimeout(() => {
           const start = performance.now();
           const dur = 350;
           function tick(now: number) {
@@ -39,6 +44,7 @@ export default function SectionLabel({ number, label, className = "mb-4", style 
     obs.observe(el);
     return () => {
       obs.disconnect();
+      clearTimeout(tid);
       cancelAnimationFrame(raf);
     };
   }, [target, label]);

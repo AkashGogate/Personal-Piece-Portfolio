@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { createTimeline, stagger } from "animejs";
-import { resumeVariants } from "@/data/resume";
 import { doNavigate } from "@/lib/navigate";
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
@@ -11,10 +10,8 @@ import HeroCanvas from "./HeroCanvas";
 const LABEL = "Software Engineer · Researcher · AI / ML · Data";
 
 export default function Hero() {
-  const [resumeOpen, setResumeOpen] = useState(false);
   const [typed, setTyped] = useState("");
   const [typeDone, setTypeDone] = useState(false);
-  const resumeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = createTimeline({ defaults: { ease: "outCubic", duration: 500 } });
@@ -37,14 +34,6 @@ export default function Hero() {
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    if (!resumeOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (resumeRef.current && !resumeRef.current.contains(e.target as Node)) setResumeOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [resumeOpen]);
 
   return (
     <section
@@ -155,56 +144,25 @@ export default function Hero() {
             View Projects
           </a>
 
-          <div ref={resumeRef} className="relative hero-btn" style={{ opacity: 0 }}>
-            <button
-              onClick={() => setResumeOpen((o) => !o)}
-              className="font-body text-sm px-5 py-2.5 border"
-              style={{ borderColor: "var(--border)", color: "var(--secondary)", letterSpacing: "0.05em", background: "transparent", cursor: "pointer" }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--mint)";
-                el.style.color = "var(--mint)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border)";
-                el.style.color = "var(--secondary)";
-              }}
-            >
-              Resume {resumeOpen ? "↑" : "↓"}
-            </button>
-
-            {resumeOpen && (
-              <div
-                className="absolute top-full left-0 mt-1 z-20"
-                style={{ background: "var(--bg)", border: "1px solid var(--border)", minWidth: "180px" }}
-              >
-                {resumeVariants.map((v) => (
-                  <a
-                    key={v.href}
-                    href={`${BASE}${v.href}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-body block px-5 py-3"
-                    style={{ fontSize: "0.82rem", color: "var(--secondary)", letterSpacing: "0.03em", borderBottom: "1px solid var(--border)", transition: "color 0.15s, background 0.15s" }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--mint)";
-                      el.style.background = "var(--surface)";
-                    }}
-                    onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--secondary)";
-                      el.style.background = "transparent";
-                    }}
-                    onClick={() => setResumeOpen(false)}
-                  >
-                    {v.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
+          <a
+            href={`${BASE}/resumes/resume-general.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body text-sm px-5 py-2.5 border hero-btn"
+            style={{ borderColor: "var(--border)", color: "var(--secondary)", letterSpacing: "0.05em", opacity: 0 }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "var(--mint)";
+              el.style.color = "var(--mint)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "var(--border)";
+              el.style.color = "var(--secondary)";
+            }}
+          >
+            Resume
+          </a>
 
           <a
             href="#contact"

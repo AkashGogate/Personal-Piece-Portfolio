@@ -93,7 +93,7 @@ export default function Nav() {
     <header
       ref={headerRef}
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ background: "var(--bg)", transition: "background 0.3s, backdrop-filter 0.3s" }}
+      style={{ background: "var(--bg)", transition: "backdrop-filter 0.3s" }}
     >
       <div ref={progressRef} style={{ position: "absolute", top: 0, left: 0, height: "1px", background: "var(--primary)", width: "0%", zIndex: 10 }} />
       <div
@@ -116,7 +116,8 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               ref={(el) => { navLinksRef.current[i] = el; }}
-              className="font-body relative group transition-colors duration-200"
+              className="font-body relative group"
+              aria-current={l.href.slice(1) === activeSection ? "page" : undefined}
               onClick={(e) => { e.preventDefault(); doNavigate(l.href); }}
               style={{
                 fontSize: "0.72rem",
@@ -134,7 +135,10 @@ export default function Nav() {
           ))}
           <div ref={resumeNavRef} className="relative">
             <button
+              type="button"
               onClick={() => setResumeOpen((o) => !o)}
+              aria-expanded={resumeOpen}
+              aria-haspopup="true"
               className="font-body"
               style={{
                 fontSize: "0.75rem",
@@ -173,7 +177,6 @@ export default function Nav() {
                       textTransform: "uppercase",
                       color: "var(--secondary)",
                       borderBottom: "1px solid var(--border)",
-                      transition: "color 0.15s, background 0.15s",
                     }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLElement;
@@ -194,6 +197,7 @@ export default function Nav() {
             )}
           </div>
           <button
+            type="button"
             onClick={toggle}
             aria-label="Toggle theme"
             style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px" }}
@@ -220,6 +224,7 @@ export default function Nav() {
 
         <div className="lg:hidden flex items-center gap-4">
           <button
+            type="button"
             onClick={toggle}
             aria-label="Toggle theme"
             style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px" }}
@@ -243,6 +248,8 @@ export default function Nav() {
             )}
           </button>
           <button
+            type="button"
+            aria-expanded={open}
             className="font-body"
             style={{
               fontSize: "0.75rem",
@@ -275,6 +282,7 @@ export default function Nav() {
                   key={l.href}
                   href={l.href}
                   className="font-body"
+                  aria-current={l.href.slice(1) === activeSection ? "page" : undefined}
                   style={{
                     fontSize: "0.75rem",
                     letterSpacing: "0.08em",

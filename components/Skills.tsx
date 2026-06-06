@@ -292,6 +292,8 @@ export default function Skills() {
                   {group.skills.map((skill) => (
                     <div key={skill.name}>
                       <button
+                        type="button"
+                        aria-expanded={expanded === skill.name}
                         className="font-body"
                         style={{
                           display: "flex",

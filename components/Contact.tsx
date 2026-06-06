@@ -28,7 +28,7 @@ const links: LinkItem[] = [
     outlook: "https://outlook.live.com/mail/0/deeplink/compose?to=agogate@wisc.edu",
   },
   { id: "github", label: "GitHub", value: "AkashGogate", isEmail: false, href: "https://github.com/AkashGogate" },
-  { id: "linkedin", label: "LinkedIn", value: "akash-gogate-71bb81297", isEmail: false, href: "https://www.linkedin.com/in/akash-gogate-71bb81297" },
+  { id: "linkedin", label: "LinkedIn", value: "akashgogate", isEmail: false, href: "https://www.linkedin.com/in/akashgogate" },
 ];
 
 function EmailPicker({ link, onClose }: { link: Extract<LinkItem, { isEmail: true }>; onClose: () => void }) {
@@ -137,7 +137,7 @@ export default function Contact() {
           className="font-body mb-8 max-w-xl"
           style={{ fontSize: "1rem", color: "var(--secondary)", lineHeight: 1.8 }}
         >
-          Looking for Summer 2026 internships in software engineering or research. Email is
+          Open to Summer 2027 internships and co-ops in software engineering, AI/ML, data science, biotech, and computational biology research. Available May 15 – Sep 1. Email is
           the best way to reach me.
         </motion.p>
 
@@ -154,6 +154,9 @@ export default function Contact() {
               {l.isEmail ? (
                 <div style={{ position: "relative", display: "inline-block" }}>
                   <button
+                    type="button"
+                    aria-expanded={pickerOpen === l.id}
+                    aria-haspopup="true"
                     className="font-body"
                     style={{
                       fontSize: "1.1rem",
@@ -207,7 +210,7 @@ export default function Contact() {
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-body"
             style={{ fontSize: "0.85rem", color: "var(--secondary)" }}
           >
-            <span>Akash Gogate — {new Date().getFullYear()}</span>
+            <span suppressHydrationWarning>Akash Gogate — {new Date().getFullYear()}</span>
             <span>Built with Next.js · Framer Motion · Tailwind CSS</span>
           </div>
         </div>

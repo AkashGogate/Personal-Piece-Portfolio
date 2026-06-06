@@ -3,7 +3,11 @@ import { projects } from "@/data/resume";
 import ScrollExpandMedia from "./ScrollExpandMedia";
 import { useTheme } from "./ThemeProvider";
 
-const featured = projects.find(p => p.id === "self-improving-agent")!;
+const featured = (() => {
+  const p = projects.find(p => p.id === "self-improving-agent");
+  if (!p) throw new Error("Featured project 'self-improving-agent' not found in resume.ts");
+  return p;
+})();
 
 export default function FeaturedProject() {
   const { theme } = useTheme();

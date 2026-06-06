@@ -85,7 +85,7 @@ export default function Experience() {
       setCurrent(prev => {
         const next = e.key === "ArrowRight" ? Math.min(prev + 1, N - 1) : Math.max(prev - 1, 0);
         if (next !== prev) scrollToCard(next);
-        return prev;
+        return next;
       });
     };
     window.addEventListener("keydown", handleKey);
@@ -306,8 +306,10 @@ export default function Experience() {
             {flatItems.map((_, i) => (
               <button
                 key={i}
+                type="button"
+                aria-label={`Go to slide ${i + 1}`}
                 onClick={() => scrollToCard(i)}
-                style={{ width: i === current ? "18px" : "5px", height: "5px", borderRadius: "3px", background: i === current ? "var(--primary)" : "var(--border)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s, background 0.3s" }}
+                style={{ width: i === current ? "18px" : "5px", height: "5px", borderRadius: "3px", background: i === current ? "var(--primary)" : "var(--border)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s" }}
               />
             ))}
           </div>

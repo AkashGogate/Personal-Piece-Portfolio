@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 type Theme = "light" | "dark";
 type Phase = "idle" | "falling" | "rising";
@@ -27,7 +27,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle("dark", initial === "dark");
   }, []);
 
-  function toggle() {
+  const toggle = useCallback(() => {
     if (phase !== "idle") return;
     const next: Theme = theme === "dark" ? "light" : "dark";
     curtainColor.current = BG[next];
@@ -39,10 +39,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setPhase("rising");
       setTimeout(() => setPhase("idle"), DURATION + 60);
     }, DURATION);
-  }
+  }, [phase, theme]);
+
+  const ctx = useMemo(() => ({ theme, toggle }), [theme, toggle]);
 
   return (
-    <Ctx.Provider value={{ theme, toggle }}>
+    <Ctx.Provider value={ctx}>
       <div
         aria-hidden="true"
         style={{

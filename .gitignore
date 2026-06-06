@@ -56,3 +56,13 @@ docs/
 
 # Claude project instructions (dev-only)
 CLAUDE.md
+
+# Claude session memory (dev-only, has its own inner .gitignore but explicit is cleaner)
+.remember/
+
+# Planning / design docs generated during dev sessions — not part of the site
+APP_FLOW.md
+IMPLEMENTATION_PLAN.md
+PRD.md
+TRD.md
+UI_UX_DESIGN_BRIEF.md

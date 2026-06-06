@@ -19,14 +19,40 @@ function ProjectDrawer({
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     animate(overlayRef.current!, { opacity: [0, 1], duration: 200 });
     animate(drawerRef.current!, { translateY: ["100%", "0%"], ease: "outExpo", duration: 450 });
-    return () => { document.body.style.overflow = prev; };
+    const tid = window.setTimeout(() => closeButtonRef.current?.focus(), 460);
+    return () => { document.body.style.overflow = prev; clearTimeout(tid); };
   }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        animate(overlayRef.current!, { opacity: 0, duration: 250 });
+        animate(drawerRef.current!, { translateY: "100%", ease: "inCubic", duration: 300 }).then(() => onClose());
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [onClose]);
 
   function handleClose() {
     animate(overlayRef.current!, { opacity: 0, duration: 250 });
@@ -52,6 +78,9 @@ function ProjectDrawer({
     >
       <div
         ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="drawer-title"
         className="w-full max-h-[80vh] overflow-y-auto"
         style={{
           background: "var(--bg)",
@@ -68,6 +97,7 @@ function ProjectDrawer({
           )}
           <div className="flex items-start justify-between gap-8 mb-6">
             <h3
+              id="drawer-title"
               className="font-display"
               style={{
                 fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
@@ -79,6 +109,8 @@ function ProjectDrawer({
               {project.title}
             </h3>
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={handleClose}
               className="font-body flex-shrink-0"
               style={{
@@ -145,6 +177,7 @@ export default function Projects() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const mousePos = useRef({ x: 0, y: 0 });
+  const openedFromRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -160,8 +193,11 @@ export default function Projects() {
   }, []);
 
   function closeDrawer() {
+    const toFocus = openedFromRef.current;
+    openedFromRef.current = null;
     setSelected(null);
     setTimeout(() => {
+      toFocus?.focus({ preventScroll: true });
       const el = document.elementFromPoint(mousePos.current.x, mousePos.current.y);
       const row = el?.closest("[data-project-id]") as HTMLElement | null;
       setHoveredId(row?.dataset.projectId ?? null);
@@ -203,6 +239,8 @@ export default function Projects() {
               >
                 <div
                   data-project-id={p.id}
+                  role="button"
+                  tabIndex={0}
                   className="cursor-pointer py-8 flex gap-6 items-start"
                   style={{
                     borderLeft: hoveredId === p.id
@@ -210,9 +248,10 @@ export default function Projects() {
                       : isMobile ? "2px solid var(--border)" : "2px solid transparent",
                     paddingLeft: hoveredId === p.id || isMobile ? "1.25rem" : "0",
                     transition: "border-color 0.2s, padding-left 0.2s",
-                    willChange: isMobile ? "auto" : "transform",
+                    willChange: !isMobile && hoveredId === p.id ? "transform" : "auto",
                   }}
-                  onClick={() => setSelected(p)}
+                  onClick={(e) => { openedFromRef.current = e.currentTarget as HTMLElement; setSelected(p); }}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openedFromRef.current = e.currentTarget as HTMLElement; setSelected(p); } }}
                   onMouseEnter={() => setHoveredId(p.id)}
                   onMouseMove={(e) => {
                     const el = e.currentTarget as HTMLElement;
@@ -255,7 +294,6 @@ export default function Projects() {
                         fontWeight: 400,
                         color: hoveredId === p.id ? "var(--mint)" : "var(--primary)",
                         lineHeight: 1.3,
-                        transition: "color 0.2s",
                       }}
                     >
                       {p.title}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 import { education, highSchool, type CourseItem } from "@/data/resume";
@@ -135,10 +135,48 @@ function CourseCard({ course, rect }: CardState) {
   );
 }
 
+function CourseAccordionContent({ course }: { course: CourseItem }) {
+  return (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ overflow: "hidden" }}
+    >
+      <div style={{ borderLeft: "2px solid var(--mint)", paddingLeft: "12px", paddingTop: "8px", paddingBottom: "12px", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+          <p style={{ fontSize: "0.67rem", color: "var(--mint)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500 }}>
+            {PROFICIENCY_LABEL[course.proficiency]}
+          </p>
+          <ProficiencyDots level={course.proficiency} />
+        </div>
+        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: 10 }}>
+          {course.description}
+        </p>
+        <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0" }} />
+        <p className="section-label" style={{ marginBottom: 5, fontSize: "0.62rem" }}>Applied to</p>
+        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.6 }}>
+          {course.useCase}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Education() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: false, margin: "-80px" });
   const [card, setCard] = useState<CardState | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section
@@ -146,7 +184,7 @@ export default function Education() {
       ref={ref}
       style={{ background: "var(--surface)", position: "relative", overflow: "hidden", paddingTop: "clamp(3rem, 6vh, 6rem)", paddingBottom: "clamp(3rem, 6vh, 6rem)" }}
     >
-      <AnimatePresence>{card && <CourseCard {...card} />}</AnimatePresence>
+      {!isMobile && <AnimatePresence>{card && <CourseCard {...card} />}</AnimatePresence>}
 
       <div className="max-w-7xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
         <motion.div
@@ -226,38 +264,72 @@ export default function Education() {
               >
                 {group.area}
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start", width: "100%" }}>
                 {group.courses.map((course, ci) => (
-                  <motion.span
+                  <motion.div
                     key={course.name}
                     initial={{ opacity: 0, x: -8 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{
-                      duration: 0.35,
-                      delay: 0.25 + gi * 0.1 + ci * 0.04,
-                      ease,
-                    }}
-                    className="font-body"
-                    style={{
-                      fontSize: "0.93rem",
-                      color: "var(--secondary)",
-                      lineHeight: 1.5,
-                      cursor: "default",
-                      userSelect: "none",
-                      display: "block",
-                    }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--mint)";
-                      setCard({ course, rect: el.getBoundingClientRect() });
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
-                      setCard(null);
-                    }}
+                    transition={{ duration: 0.35, delay: 0.25 + gi * 0.1 + ci * 0.04, ease }}
+                    style={{ width: "100%" }}
                   >
-                    {course.name}
-                  </motion.span>
+                    {isMobile ? (
+                      <>
+                        <button
+                          type="button"
+                          aria-expanded={expanded === course.name}
+                          className="font-body"
+                          style={{
+                            fontSize: "0.93rem",
+                            color: expanded === course.name ? "var(--mint)" : "var(--secondary)",
+                            lineHeight: 1.5,
+                            cursor: "pointer",
+                            userSelect: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            background: "none",
+                            border: "none",
+                            padding: 0,
+                            textAlign: "left",
+                          }}
+                          onClick={() => setExpanded(expanded === course.name ? null : course.name)}
+                        >
+                          <span>{course.name}</span>
+                          <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>
+                            {expanded === course.name ? "▲" : "▼"}
+                          </span>
+                        </button>
+                        <AnimatePresence>
+                          {expanded === course.name && <CourseAccordionContent course={course} />}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <span
+                        className="font-body"
+                        style={{
+                          fontSize: "0.93rem",
+                          color: "var(--secondary)",
+                          lineHeight: 1.5,
+                          cursor: "default",
+                          userSelect: "none",
+                          display: "block",
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.color = "var(--mint)";
+                          setCard({ course, rect: el.getBoundingClientRect() });
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
+                          setCard(null);
+                        }}
+                      >
+                        {course.name}
+                      </span>
+                    )}
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -298,33 +370,72 @@ export default function Education() {
               >
                 {group.area}
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start", width: "100%" }}>
                 {group.courses.map((course, ci) => (
-                  <motion.span
+                  <motion.div
                     key={course.name}
                     initial={{ opacity: 0, x: -8 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.35, delay: 0.45 + gi * 0.1 + ci * 0.04, ease }}
-                    className="font-body"
-                    style={{
-                      fontSize: "0.93rem",
-                      color: "var(--secondary)",
-                      lineHeight: 1.5,
-                      cursor: "default",
-                      userSelect: "none",
-                    }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.color = "var(--mint)";
-                      setCard({ course, rect: el.getBoundingClientRect() });
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
-                      setCard(null);
-                    }}
+                    style={{ width: "100%" }}
                   >
-                    {course.name}
-                  </motion.span>
+                    {isMobile ? (
+                      <>
+                        <button
+                          type="button"
+                          aria-expanded={expanded === course.name}
+                          className="font-body"
+                          style={{
+                            fontSize: "0.93rem",
+                            color: expanded === course.name ? "var(--mint)" : "var(--secondary)",
+                            lineHeight: 1.5,
+                            cursor: "pointer",
+                            userSelect: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            background: "none",
+                            border: "none",
+                            padding: 0,
+                            textAlign: "left",
+                          }}
+                          onClick={() => setExpanded(expanded === course.name ? null : course.name)}
+                        >
+                          <span>{course.name}</span>
+                          <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>
+                            {expanded === course.name ? "▲" : "▼"}
+                          </span>
+                        </button>
+                        <AnimatePresence>
+                          {expanded === course.name && <CourseAccordionContent course={course} />}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <span
+                        className="font-body"
+                        style={{
+                          fontSize: "0.93rem",
+                          color: "var(--secondary)",
+                          lineHeight: 1.5,
+                          cursor: "default",
+                          userSelect: "none",
+                          display: "block",
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.color = "var(--mint)";
+                          setCard({ course, rect: el.getBoundingClientRect() });
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
+                          setCard(null);
+                        }}
+                      >
+                        {course.name}
+                      </span>
+                    )}
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -338,7 +449,7 @@ export default function Education() {
           className="section-label"
           style={{ marginTop: "2rem" }}
         >
-          Hover any course to explore
+          {isMobile ? "Tap any course to explore" : "Hover any course to explore"}
         </motion.p>
       </div>
     </section>
