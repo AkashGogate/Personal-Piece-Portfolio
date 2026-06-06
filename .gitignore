@@ -35,7 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# resume originals and master vault — not for public repo
+# resume variants — only Gogate Akash Resumé.pdf is public
+public/resumes/resume-*.pdf
 public/resumes/Gogate_Akash_Master_Vault.pdf
 public/resumes/resume-all.pdf
 public/resumes/Akash Gogate*.pdf
