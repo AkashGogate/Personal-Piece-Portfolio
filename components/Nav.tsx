@@ -115,7 +115,7 @@ export default function Nav() {
             >
               {l.label}
               <span
-                className="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-all duration-300"
+                className="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-[width] duration-300"
                 style={{ background: "var(--mint)" }}
               />
             </a>
