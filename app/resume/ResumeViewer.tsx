@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
 const PDF = `${BASE}/resumes/Gogate%20Akash%20Resum%C3%A9.pdf`;
 
 export default function ResumeViewer() {
   const [isMobile, setIsMobile] = useState(false);
+  const [pdfError, setPdfError] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -98,21 +102,21 @@ export default function ResumeViewer() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: isMobile ? "center" : "flex-start",
+          justifyContent: isMobile || pdfError ? "center" : "flex-start",
           background: "var(--bg)",
         }}
       >
-        {isMobile ? (
-          <div style={{ textAlign: "center", maxWidth: "360px" }}>
+        {isMobile || pdfError ? (
+          <div style={{ textAlign: "center", maxWidth: "420px" }}>
             <p className="section-label" style={{ marginBottom: "1rem" }}>Resume</p>
             <h1
               className="font-display"
               style={{
-                fontSize: "clamp(2rem, 8vw, 3rem)",
+                fontSize: "clamp(2.5rem, 6vw, 4rem)",
                 fontWeight: 400,
                 color: "var(--primary)",
                 letterSpacing: "-0.02em",
-                lineHeight: 1.15,
+                lineHeight: 1.1,
                 marginBottom: "1rem",
               }}
             >
@@ -120,7 +124,7 @@ export default function ResumeViewer() {
             </h1>
             <p
               className="font-body"
-              style={{ fontSize: "0.9rem", color: "var(--secondary)", lineHeight: 1.7, marginBottom: "2.5rem" }}
+              style={{ fontSize: "0.95rem", color: "var(--secondary)", lineHeight: 1.75, marginBottom: "2.5rem" }}
             >
               Software Engineer · Researcher · AI / ML · Data
             </p>
@@ -135,7 +139,7 @@ export default function ResumeViewer() {
                 textTransform: "uppercase",
                 color: "var(--primary)",
                 background: "var(--mint)",
-                padding: "0.75rem 2rem",
+                padding: "0.85rem 2.5rem",
                 textDecoration: "none",
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; }}
@@ -146,28 +150,8 @@ export default function ResumeViewer() {
           </div>
         ) : (
           <>
-            <object
-              data={PDF}
-              type="application/pdf"
-              title="Akash Gogate Resume"
-              style={{
-                width: "100%",
-                maxWidth: "860px",
-                height: "calc(100vh - 120px)",
-                border: "1px solid var(--border)",
-              }}
-            >
-              <p
-                className="font-body"
-                style={{ color: "var(--secondary)", fontSize: "0.9rem", padding: "2rem", textAlign: "center" }}
-              >
-                PDF preview unavailable.{" "}
-                <a href={PDF} download="Gogate Akash Resumé.pdf" style={{ color: "var(--mint)" }}>
-                  Download the resume
-                </a>
-              </p>
-            </object>
-            <p className="font-body" style={{ marginTop: "1rem", fontSize: "0.8rem", color: "var(--secondary)" }}>
+            <PdfViewer src={PDF} onError={() => setPdfError(true)} />
+            <p className="font-body" style={{ marginTop: "1.5rem", fontSize: "0.8rem", color: "var(--secondary)" }}>
               <a
                 href={PDF}
                 download="Gogate Akash Resumé.pdf"
