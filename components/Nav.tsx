@@ -121,9 +121,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href={`${BASE}/resumes/resume-general.pdf`}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`${BASE}/resume`}
             className="font-body"
             style={{
               fontSize: "0.75rem",
@@ -237,9 +235,7 @@ export default function Nav() {
               ))}
               <div style={{ borderTop: "1px solid var(--border)", paddingTop: "0.5rem", marginTop: "0.25rem" }}>
                 <a
-                  href={`${BASE}/resumes/resume-general.pdf`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${BASE}/resume`}
                   className="font-body block py-2"
                   style={{
                     fontSize: "0.75rem",

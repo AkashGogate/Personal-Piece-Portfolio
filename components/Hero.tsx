@@ -145,9 +145,7 @@ export default function Hero() {
           </a>
 
           <a
-            href={`${BASE}/resumes/resume-general.pdf`}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`${BASE}/resume`}
             className="font-body text-sm px-5 py-2.5 border hero-btn"
             style={{ borderColor: "var(--border)", color: "var(--secondary)", letterSpacing: "0.05em", opacity: 0 }}
             onMouseEnter={(e) => {
