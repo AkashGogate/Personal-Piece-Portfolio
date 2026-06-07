@@ -97,10 +97,9 @@ export default function ResumeViewer() {
           background: "var(--bg)",
         }}
       >
-        <iframe
-          src={`${BASE}/resumes/Akash%20Gogate%20Resume.pdf`}
-          title="Akash Gogate Resume"
-          sandbox="allow-scripts allow-same-origin"
+        <embed
+          src={`${BASE}/resumes/Akash%20Gogate%20Resume.pdf#toolbar=0&navpanes=0&scrollbar=0`}
+          type="application/pdf"
           style={{
             width: "100%",
             maxWidth: "860px",

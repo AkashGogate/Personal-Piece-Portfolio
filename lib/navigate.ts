@@ -15,6 +15,23 @@ export function doNavigate(href: string) {
       return;
     }
 
+    if (feat && href === "#featured-project") {
+      const featAbsTop = feat.getBoundingClientRect().top + window.scrollY;
+      const dest = featAbsTop - 80;
+      if (y <= dest) {
+        window.scrollTo({ top: dest, behavior: "smooth" });
+      } else {
+        const featInner = feat.children[0] as HTMLElement | undefined;
+        if (featInner) featInner.style.opacity = "0";
+        window.scrollTo({ top: Math.max(0, featAbsTop - 1), behavior: "instant" as ScrollBehavior });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (featInner) featInner.style.opacity = "";
+          window.scrollTo({ top: dest, behavior: "smooth" });
+        }));
+      }
+      return;
+    }
+
     const featTop = feat ? feat.getBoundingClientRect().top + window.scrollY : 0;
     const featEnd = feat ? featTop + feat.offsetHeight - window.innerHeight : 0;
 
