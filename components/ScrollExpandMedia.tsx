@@ -97,7 +97,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
             <div style={{ position: "absolute", inset: 0, background: cardOverlay }} />
             <motion.div
               animate={{ opacity: progress > 0.82 ? 1 : 0, y: progress > 0.82 ? 0 : 16 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: progress > 0.82 ? 0.5 : 0 }}
               style={{
                 position: "absolute",
                 bottom: 0,

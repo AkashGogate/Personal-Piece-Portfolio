@@ -35,13 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# resume variants — only "Akash Gogate Resume.pdf" is public
-public/resumes/resume-*.pdf
-public/resumes/Gogate_Akash_Master_Vault.pdf
-public/resumes/resume-all.pdf
-public/resumes/Akash Gogate*.pdf
-!public/resumes/Akash Gogate Resume.pdf
-public/resumes/Gogate Akash*.pdf
+# only the canonical resume is public; all other PDFs are local-only
+public/resumes/*.pdf
+!public/resumes/Gogate Akash Resumé.pdf
 
 # three.js source (600MB dev reference — not part of the site)
 three.js-master/
