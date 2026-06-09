@@ -228,6 +228,7 @@ export default function Nav() {
                     textTransform: "uppercase",
                     color: l.href.slice(1) === activeSection ? "var(--mint)" : "var(--secondary)",
                   }}
+                  onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
                   onClick={(e) => { e.preventDefault(); doNavigate(l.href); setOpen(false); }}
                 >
                   {l.label}
@@ -244,6 +245,7 @@ export default function Nav() {
                     color: "var(--primary)",
                     textDecoration: "none",
                   }}
+                  onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
                   onClick={() => setOpen(false)}
                 >
                   Resume
