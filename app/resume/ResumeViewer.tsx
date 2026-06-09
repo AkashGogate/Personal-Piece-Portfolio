@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 
 const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
@@ -9,15 +9,7 @@ const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
 const PDF = `${BASE}/resumes/Gogate%20Akash%20Resum%C3%A9.pdf`;
 
 export default function ResumeViewer() {
-  const [isMobile, setIsMobile] = useState(false);
   const [pdfError, setPdfError] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   return (
     <main
@@ -98,15 +90,15 @@ export default function ResumeViewer() {
       <div
         style={{
           flex: 1,
-          padding: isMobile ? "3rem 1.5rem" : "2rem 1.5rem",
+          padding: "2rem 1.5rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: isMobile || pdfError ? "center" : "flex-start",
+          justifyContent: pdfError ? "center" : "flex-start",
           background: "var(--bg)",
         }}
       >
-        {isMobile || pdfError ? (
+        {pdfError ? (
           <div style={{ textAlign: "center", maxWidth: "420px" }}>
             <p className="section-label" style={{ marginBottom: "1rem" }}>Resume</p>
             <h1
