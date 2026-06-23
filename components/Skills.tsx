@@ -370,7 +370,7 @@ export default function Skills() {
           className="section-label"
           style={{ marginTop: "1rem" }}
         >
-          {isMobile ? "Tap any skill to explore" : "Hover any skill to explore"}
+          {isMobile ? "Tap any skill to explore" : "Hover over any skill to explore"}
         </motion.p>
       </div>
     </section>

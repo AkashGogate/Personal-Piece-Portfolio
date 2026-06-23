@@ -449,7 +449,7 @@ export default function Education() {
           className="section-label"
           style={{ marginTop: "2rem" }}
         >
-          {isMobile ? "Tap any course to explore" : "Hover any course to explore"}
+          {isMobile ? "Tap any course to explore" : "Hover over any course to explore"}
         </motion.p>
       </div>
     </section>
