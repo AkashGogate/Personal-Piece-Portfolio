@@ -314,7 +314,7 @@ export default function Education() {
                           lineHeight: 1.5,
                           cursor: "default",
                           userSelect: "none",
-                          display: "block",
+                          display: "inline",
                         }}
                         onMouseEnter={(e) => {
                           const el = e.currentTarget as HTMLElement;
@@ -420,7 +420,7 @@ export default function Education() {
                           lineHeight: 1.5,
                           cursor: "default",
                           userSelect: "none",
-                          display: "block",
+                          display: "inline",
                         }}
                         onMouseEnter={(e) => {
                           const el = e.currentTarget as HTMLElement;
