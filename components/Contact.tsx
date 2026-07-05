@@ -28,7 +28,7 @@ const links: LinkItem[] = [
     outlook: "https://outlook.live.com/mail/0/deeplink/compose?to=agogate@wisc.edu",
   },
   { id: "github", label: "GitHub", value: "AkashGogate", isEmail: false, href: "https://github.com/AkashGogate" },
-  { id: "linkedin", label: "LinkedIn", value: "akashgogate", isEmail: false, href: "https://www.linkedin.com/in/akash-gogate-71bb81297/" },
+  { id: "linkedin", label: "LinkedIn", value: "akashgogate", isEmail: false, href: "https://www.linkedin.com/in/akash-gogate-71bb81297" },
 ];
 
 function EmailPicker({ link, onClose }: { link: Extract<LinkItem, { isEmail: true }>; onClose: () => void }) {
