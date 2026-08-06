@@ -299,11 +299,12 @@ export const experienceSections: ExperienceSection[] = [
         role: "Software Engineer Intern",
         period: "May 2025 — Present",
         bullets: [
-          "Applied system design principles to optimize multi-objective satellite scheduling via memoization + dynamic programming in Python, reducing constraint violations under real-time operational constraints.",
-          "Designed scalable Kafka event-driven data pipeline persisting to MongoDB with at-least-once delivery, fault-tolerant streaming, and full system decoupling for mission-critical satellite ops.",
-          "Deployed containerized Docker test suite on Kubernetes via GitHub Actions CI/CD; comprehensive unit testing and debugging coverage ensuring production reliability and software engineering quality across all system components.",
+          "Applied system design principles to optimize multi-objective satellite scheduling via memoization and dynamic programming in Python, then rewrote the engine in Rust for the team's production microservice ecosystem to meet strict reliability and latency requirements.",
+          "Designed a scalable Kafka event-driven data pipeline persisting to MongoDB with at-least-once delivery and full system decoupling for mission-critical satellite operations.",
+          "Containerized a Docker test suite on Kubernetes via GitHub Actions CI/CD, writing pytest coverage across boundary conditions and fault injection to catch regressions before production.",
+          "Built a Claude Code MCP plugin from scratch on top of an institutional knowledge graph mapping team ontologies and service dependencies, serving 30 engineers across a multi-team defense program.",
         ],
-        tags: ["Python", "Kafka", "Kubernetes", "Docker", "MongoDB", "Dynamic Programming", "GitHub Actions", "CI/CD"],
+        tags: ["Python", "Kafka", "Kubernetes", "Docker", "MongoDB", "Dynamic Programming", "GitHub Actions", "CI/CD", "Rust", "Neo4j"],
         imageSrc: "/images/experience/leidos.jpg",
       },
     ],
@@ -317,9 +318,9 @@ export const experienceSections: ExperienceSection[] = [
         role: "Student Research Intern",
         period: "September 2025 — Present",
         bullets: [
-          "Built end-to-end ML pipeline for single-cell RNA sequencing (scRNA-seq), next-generation sequencing (NGS), and spatial transcriptomics using PyTorch/TensorFlow deep learning; agentic framework selected and evaluated models across scVI/scANVI/scGen/AmortizedLDA for scalable production genomics, reducing GPU computation 300%; tracked via Weights & Biases.",
-          "Engineered TransferAgent automating natural language processing (NLP) literature synthesis and cross-paper validity scoring; cut review time by ~60%; collaborated with clinicians on clinical genomics impact.",
-          "Validated model performance and pipeline reproducibility across interdisciplinary research team; findings contributed to ongoing clinical genomics publication and drug discovery workflows.",
+          "Built end-to-end ML pipeline for single-cell RNA sequencing (scRNA-seq), next-generation sequencing (NGS), and spatial transcriptomics using PyTorch/TensorFlow deep learning; agentic framework selects and evaluates models across scVI/scANVI/scGen/AmortizedLDA for scalable production genomics, cutting GPU runtime from 80 to 27 minutes (300% reduction) on identical hardware; tracked via Weights & Biases.",
+          "Built TransferAgent, automating natural language processing (NLP) literature synthesis and cross-paper validity scoring across ~500 clinical genomics papers; cut review time by ~60%; collaborated with clinicians on clinical genomics impact.",
+          "Co-authored an ongoing clinical genomics publication targeting a peer-reviewed computational biology journal, validating model performance and pipeline reproducibility for glioblastoma gene therapy research across a 10-person interdisciplinary lab.",
         ],
         tags: ["Python", "R", "LLM APIs", "Scanpy", "Seurat", "CARD", "scRNA-seq", "scVI", "scANVI", "Weights & Biases", "GitHub Actions"],
         imageSrc: "/images/experience/kendziorski.jpg",
@@ -329,7 +330,7 @@ export const experienceSections: ExperienceSection[] = [
         role: "Machine Learning Research Intern",
         period: "Sep 2022 — Mar 2023",
         bullets: [
-          "Built skin cancer detection pipeline (OpenCV + scikit-learn/TensorFlow, NumPy/Pandas) achieving 93% classification accuracy; published as peer-reviewed paper 'Early Skin Cancer Detection Improvement' through Inspirit AI.",
+          "Built skin cancer detection pipeline (OpenCV + scikit-learn, NumPy/Pandas) achieving 95% classification accuracy on ~70,000 dermoscopic images; published as first author on 'Early Skin Cancer Detection Improvement' through Inspirit AI.",
           "Trained and validated Random Forest classifier on miRNA sequences achieving 95% predictive accuracy (p < 0.05); validated via stratified k-fold cross-validation for cancer cell likelihood prediction.",
         ],
         tags: ["Python", "scikit-learn", "OpenCV", "Decision Tree", "KNN", "ML Research"],
@@ -346,7 +347,8 @@ export const experienceSections: ExperienceSection[] = [
         role: "Tennis Coach & Tournament Director",
         period: "May 2024 — Aug 2024",
         bullets: [
-          "Directed tournament logistics; coached athletes across skill levels in cross-functional environment; managed end-to-end client communications.",
+          "Directed 8 regional tournaments (380+ match entries, 100% on-time initialization) while coaching 3 classes of 8-10 athletes ages 8-65, in a dual tournament director and head coach role.",
+          "Guided 3 junior athletes to 150+ regional ranking points and 5 adults up a full 0.5 NTRP competitive level through data-driven, skill-adapted coaching regimens.",
         ],
         tags: ["Leadership", "Communication", "Event Management"],
         imageSrc: "/images/experience/princeton.jpg",
@@ -356,12 +358,37 @@ export const experienceSections: ExperienceSection[] = [
         role: "Founder",
         period: "Jan 2019 — Present",
         bullets: [
-          "Founded and scaled to 50+ loyal clients; manage all operations, inventory, and client consultations.",
+          "Founded and scaled an independent racket stringing business to 45+ clients, servicing 12-20 rackets monthly with a premium 2-day turnaround tier alongside the standard 3-4 day SLA.",
+          "Grew the client base through multi-channel grassroots marketing: word-of-mouth referrals, flyers at local parks, high school team referral discounts, and an Instagram page of stringing craftsmanship.",
         ],
         tags: ["Entrepreneurship", "Operations", "Client Relations", "Inventory Management"],
         imageSrc: "/images/experience/stringing.jpg",
       },
     ],
+  },
+];
+
+export interface Accomplishment {
+  title: string;
+  organization: string;
+  result: string;
+  period: string;
+  bullets: string[];
+  tags?: string[];
+  imageSrc?: string;
+}
+
+export const accomplishments: Accomplishment[] = [
+  {
+    title: "TEL: Spatial Intelligence Ideathon",
+    organization: "UW-Madison",
+    result: "2nd Place, 2-Person Team",
+    period: "Jul 2026",
+    bullets: [
+      "Placed 2nd at a competitive UW-Madison ideathon, pitching a dual-product airport accessibility platform combining ZaiNAr sub-meter indoor positioning with SGA AR spatial computing.",
+      "Designed a B2B tool giving airline staff real-time sub-meter wheelchair-passenger tracking between gates, paired with a B2C app letting family track accessible relatives through the terminal.",
+    ],
+    tags: ["Spatial Computing", "AR", "Accessibility", "Product Design"],
   },
 ];
 
@@ -388,9 +415,10 @@ export const projects: Project[] = [
     id: "lotus-health",
     title: "Lotus Health",
     description: "Financial risk engine over a 1,080-node ICD-10 comorbidity graph, querying 45 million insurance records to compute 5-year disease cost paths.",
-    detail: "Built probabilistic disease cost engine on a 1,080-node ICD-10 comorbidity graph across 45M records; RAG pipeline with semantic similarity search over the graph as vector database; full-stack React/Cytoscape.js frontend with voice interface. Designed scalable system architecture separating NLP inference (Groq Llama) from deterministic financial logic (Python engine); ensures ACID-compliant, hallucination-free outputs — production-grade software design. Integrates with HIPAA-compliant, EHR-adjacent clinical decision support workflows; RAG matches patient symptoms to ICD-10 risk profiles via SQL-queried healthcare data; all outputs auditable.",
-    tags: ["Python", "SQL", "RAG", "ICD-10", "React.js", "Cytoscape.js", "HealthTech", "FinTech"],
+    detail: "Built probabilistic disease cost engine on a 1,080-node ICD-10 comorbidity graph across 45M records; RAG pipeline with semantic similarity search over the graph as vector database; full-stack React/Cytoscape.js frontend with real-time voice symptom input via Deepgram. Designed scalable system architecture separating NLP inference (Groq Llama) from deterministic financial logic (Python engine); ensures ACID-compliant, hallucination-free outputs — production-grade software design. Integrates with HIPAA-compliant, EHR-adjacent clinical decision support workflows; RAG matches patient symptoms to ICD-10 risk profiles via SQL-queried healthcare data; all outputs auditable.",
+    tags: ["Python", "SQL", "RAG", "ICD-10", "React.js", "Cytoscape.js", "Deepgram", "HealthTech", "FinTech"],
     github: "https://github.com/AkashGogate/lotus-health",
+    note: "Honorable mention — MadData (UW-Madison hackathon)",
     imageSrc: "/images/projects/lotus-health.png",
   },
   {
@@ -424,7 +452,7 @@ export const projects: Project[] = [
     id: "eco-game",
     title: "Ecological Conservation Game",
     description: "Multi-threaded C++ simulation where AI bots compete for survival under configurable ecological constraints.",
-    detail: "Engineered multi-threaded, AI-driven multi-agent C++ simulation with Raylib; autonomous bots exhibit emergent behaviors under ecological constraints with a real-time game loop. Bots compete for resources under configurable constraints (food scarcity, predation, territory), producing emergent behavior from simple rule sets. Demonstrates carrying capacity, predator-prey dynamics, and resource competition through interactive simulation.",
+    detail: "Built a multi-threaded, AI-driven multi-agent C++ simulation with Raylib; autonomous bots exhibit emergent behaviors under ecological constraints with a real-time game loop. Bots compete for resources under configurable constraints (food scarcity, predation, territory), producing emergent behavior from simple rule sets. Demonstrates carrying capacity, predator-prey dynamics, and resource competition through interactive simulation.",
     tags: ["C++", "Raylib", "Game AI", "Multi-Agent", "Simulation"],
     github: "https://github.com/AkashGogate/EcologicalConservationBots",
     imageSrc: "/images/projects/eco-game.jpg",
@@ -460,12 +488,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Java",       proficiency: 3, description: "Built the USTA Tournament Explorer for Android. Handles HTTP connections to USTA's GraphQL API and manages the mobile UI lifecycle." },
       { name: "JavaScript", proficiency: 3, description: "Frontend scripting behind the React.js work. Used in the SAT Generator UI for session state and browser-side rendering." },
       { name: "C++",        proficiency: 3, description: "Built the Ecological Conservation Game's AI simulation and real-time game loop. Paired with Raylib for rendering." },
+      { name: "Rust",       proficiency: 3, description: "Rewrote a Python satellite-scheduling engine in Rust at Leidos for a production microservice ecosystem, learning ownership, lifetimes, traits, and async patterns for compile-time memory safety under strict reliability and latency requirements." },
       { name: "SQL",        proficiency: 3, description: "Relational querying and schema design. Used to query the 45M-record MEPS/CMS actuarial datasets in Lotus Health and across backend projects." },
       { name: "Node.js",    proficiency: 3, description: "Backend runtime for the SAT Generator. Manages session state, API routing, and communication between the React frontend and FastAPI LLM layer." },
-      { name: "Linux/Bash", proficiency: 3, description: "Daily shell scripting and environment management at Leidos and across all bioinformatics pipeline work." },
-      { name: "Shell Scripting", proficiency: 3, description: "Bash pipeline automation for bioinformatics workflows at Kendziorski and system management at Leidos." },
-      { name: "C#",         proficiency: 2, description: "Object-oriented language from coursework. Familiar with the type system and .NET ecosystem basics." },
-      { name: "Rust",       proficiency: 2, description: "Learning ownership, lifetimes, and systems-level memory management. Not yet used in a shipped project." },
     ],
   },
   {
@@ -478,10 +503,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Kubernetes",     proficiency: 3, description: "Orchestrated a Docker-based test suite in a production-grade cluster at Leidos. Managed pod configuration, deployments, and service connectivity." },
       { name: "MongoDB",        proficiency: 3, description: "Persistence layer for the Kafka pipeline at Leidos. Stores and retrieves priority satellite scheduling data with low latency." },
       { name: "FastAPI",        proficiency: 3, description: "Python backend for the SAT Generator. Handles request routing, GPT-4o integration, question validation, and response serialization." },
-      { name: "Supabase",       proficiency: 2, description: "Vector database for semantic similarity search. Used as the retrieval layer in the Lotus Health RAG pipeline for ICD-10 node mapping." },
-      { name: "Redis",          proficiency: 2, description: "In-memory data store for caching and ephemeral state management in backend systems." },
-      { name: "SQLite",         proficiency: 2, description: "Lightweight embedded database for local-first and edge data storage in smaller backend projects." },
-      { name: "PostgreSQL",     proficiency: 2, description: "Relational database for structured, high-integrity data storage. Part of the backend tech stack alongside MongoDB and SQLite." },
+      { name: "Redis",          proficiency: 2, description: "Sub-second result caching layer for a DuckDB-backed, LLM-powered natural-language aircraft fleet readiness query tool built at Leidos." },
+      { name: "DuckDB",         proficiency: 2, description: "Embedded analytical SQL engine for in-process fleet readiness queries at Leidos, paired with Redis caching and an LLM layer translating operator questions into SQL." },
+      { name: "Neo4j",          proficiency: 2, description: "Graph database backing an institutional knowledge graph at Leidos (~300-500 nodes) mapping team ontologies and service dependencies for a Claude Code MCP plugin serving 30 engineers." },
       { name: "System Design",  proficiency: 3, description: "Designing scalable, fault-tolerant distributed systems. Applied at Leidos to the Kafka event-driven pipeline with at-least-once delivery semantics and full service decoupling." },
     ],
   },
@@ -493,19 +517,17 @@ export const skillGroups: SkillGroup[] = [
       { name: "LLM APIs",         proficiency: 4, description: "GPT-4o for the SAT Generator and OpenAI/Claude/Groq APIs for the LLM agent pipelines at Kendziorski and in Lotus Health." },
       { name: "NumPy",            proficiency: 4, description: "Array computing backbone for bioinformatics work at Kendziorski. Used in matrix operations and data transformation pipelines for single-cell data." },
       { name: "Pandas",           proficiency: 4, description: "Data manipulation across the Kendziorski pipeline. Cleans, filters, and reshapes genomics dataframes before analysis." },
-      { name: "Scikit-learn",     proficiency: 4, description: "Built a skin cancer detection classifier at Inspirit AI reaching 93% accuracy using Decision Tree and KNN on dermoscopic image features." },
+      { name: "Scikit-learn",     proficiency: 4, description: "Built a skin cancer detection classifier at Inspirit AI reaching 95% accuracy using Decision Tree and KNN on dermoscopic image features." },
       { name: "Weights & Biases", proficiency: 3, description: "Experiment tracking at Kendziorski for all model selection runs across scVI, scANVI, scGen, and AmortizedLDA. Logs metrics, hyperparameters, and training curves." },
-      { name: "Hugging Face",     proficiency: 3, description: "Transformer model hub and Sentence-Transformers library for semantic similarity search in RAG pipelines." },
       { name: "TensorFlow",       proficiency: 3, description: "Secondary deep learning framework used for model prototyping and deployment in ML coursework and research." },
       { name: "OpenCV",           proficiency: 3, description: "Real-time image processing for the hand tracking system. Reads webcam frames and passes them to MediaPipe for hand landmark detection at 30fps." },
       { name: "MediaPipe",        proficiency: 3, description: "Google's hand landmark detection framework. Paired with OpenCV to track hand orientation and classify grip patterns for tennis technique feedback." },
+      { name: "Whisper",          proficiency: 2, description: "OpenAI's real-time speech recognition model, integrated into a voice-to-geospatial tactical mapping pipeline at Leidos for ATAK field operations." },
       { name: "CUDA",             proficiency: 3, description: "GPU-accelerated computing for the profiling and optimization work at Kendziorski, where pipeline throughput was measured and tuned per GPU kernel." },
-      { name: "MLflow",             proficiency: 2, description: "Experiment lifecycle tracking for reproducible ML experiments. Used alongside Weights & Biases in multi-model evaluation runs." },
       { name: "Decision Trees",     proficiency: 4, description: "Classical classifier used in the Inspirit AI skin cancer detection pipeline. Implemented with scikit-learn on dermoscopic image features, cross-validated for generalization." },
       { name: "KNN",                proficiency: 3, description: "K-Nearest Neighbors classifier from the Inspirit AI skin cancer detection pipeline. Paired with Decision Tree and evaluated via k-fold cross-validation." },
-      { name: "Cross-Validation",   proficiency: 4, description: "Applied stratified k-fold cross-validation at Inspirit AI (93% skin cancer accuracy) and miRcore (95% microRNA accuracy) to validate model generalization." },
+      { name: "Cross-Validation",   proficiency: 4, description: "Applied stratified k-fold cross-validation at Inspirit AI (95% skin cancer accuracy) and miRcore (95% microRNA accuracy) to validate model generalization." },
       { name: "Statistical Modeling", proficiency: 3, description: "Probabilistic and statistical methods for predictive modeling. Applied in miRcore (Random Forest on microRNA expression), Inspirit AI (classification), and Lotus Health (disease cost engine)." },
-      { name: "Data Visualization", proficiency: 3, description: "Visualizing model metrics, experiment runs, and biological data. Used via Weights & Biases at Kendziorski for training curves and experiment tracking." },
     ],
   },
   {
@@ -514,7 +536,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "RAG",                      proficiency: 4, description: "Retrieval-augmented generation as the retrieval layer in both the Self-Improving LLM Agent (task context retrieval) and Lotus Health (ICD-10 symptom-to-node mapping)." },
       { name: "LLM Agents",               proficiency: 4, description: "Orchestrated multi-step agentic systems at Kendziorski (model selection pipeline) and in the Self-Improving Agent (failure-driven self-improvement loop)." },
       { name: "Semantic Similarity Search",proficiency: 3, description: "Deployed over the ICD-10 graph structure in Lotus Health to map natural language symptom input to disease risk profiles." },
-      { name: "Vector Databases",          proficiency: 3, description: "Used Supabase and Pinecone as retrieval backends for semantic search in RAG pipelines across Lotus Health and the Self-Improving Agent." },
+      { name: "Vector Databases",          proficiency: 3, description: "Retrieval backend for semantic search in RAG pipelines across Lotus Health and the Self-Improving Agent." },
       { name: "AgentBench / Benchmarking", proficiency: 3, description: "Evaluated the Self-Improving LLM Agent against the ReAct baseline across 5,000+ tasks. Benchmarking tracked repeated_failure_rate, task horizon length, and overall task completion." },
       { name: "Inference Optimization",    proficiency: 3, description: "Tuned temperature, sampling strategy, and context window usage for the Self-Improving Agent at horizon 20, balancing performance against memory and context budget." },
     ],
@@ -530,10 +552,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "scANVI",       proficiency: 3, description: "Semi-supervised extension of scVI for cell-type annotation. Selected by the Kendziorski pipeline for labeled training scenarios." },
       { name: "scGen",        proficiency: 2, description: "Generative model for perturbation prediction in single-cell data. Part of the Kendziorski pipeline's model search space." },
       { name: "AmortizedLDA", proficiency: 2, description: "Topic modeling approach for single-cell data. Evaluated by the Kendziorski pipeline's hypothesis-driven model selection framework." },
-      { name: "DESeq2",                    proficiency: 2, description: "R package for differential expression analysis of RNA-seq count data. Used for gene-level comparisons in bioinformatics coursework and research." },
       { name: "NGS",                       proficiency: 3, description: "Next-generation sequencing data processing in the Kendziorski Lab pipeline. Handled alongside scRNA-seq and spatial transcriptomics as part of the end-to-end analysis pipeline." },
       { name: "Spatial Transcriptomics",   proficiency: 3, description: "Gene expression profiling at spatial resolution. Central data modality in the Kendziorski Lab pipeline, processed via Scanpy and Seurat." },
-      { name: "Multi-Omics Integration",   proficiency: 3, description: "Integrating multiple biological data types (transcriptomics, genomics) across the Kendziorski Lab ML pipeline for comprehensive biological insight." },
     ],
   },
   {
@@ -543,6 +563,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "Android SDK", proficiency: 3, description: "Native Android development in Java for the USTA Tournament Explorer. Fetches tournament data via HTTP and renders it in a navigable list." },
       { name: "GraphQL",     proficiency: 2, description: "Query language used to consume USTA's tournament API in the Android app. Handles structured data retrieval with field-level specificity." },
       { name: "Cytoscape.js",proficiency: 2, description: "Graph visualization library used in Lotus Health to render the 1,080-node ICD-10 comorbidity graph as an interactive disease network." },
+      { name: "Deepgram",    proficiency: 2, description: "Real-time streaming speech-to-text API powering voice symptom input in Lotus Health, feeding directly into the ICD-10 risk scoring pipeline." },
       { name: "Raylib",      proficiency: 2, description: "Lightweight C++ graphics library used in the Ecological Conservation Game for rendering AI bots, environments, and real-time simulation state." },
     ],
   },
@@ -550,10 +571,26 @@ export const skillGroups: SkillGroup[] = [
     category: "Developer Tools",
     skills: [
       { name: "GitHub",          proficiency: 4, description: "Version control and code collaboration across every project. Comfortable with branching, pull requests, code review, and CI/CD workflows." },
-      { name: "Jupyter Notebook",proficiency: 4, description: "Primary environment for exploratory data analysis, model prototyping, and bioinformatics pipeline development across all research work." },
       { name: "pytest",          proficiency: 3, description: "Python testing framework for the unit test suite at Leidos. Wrote tests covering every system component in the containerized Kubernetes environment." },
       { name: "Code Review",     proficiency: 3, description: "Reviewing pull requests for correctness, style, and performance across all GitHub-based projects. Standard practice at Leidos and Kendziorski." },
       { name: "OOP",             proficiency: 3, description: "Object-oriented design applied in the SAT Generator (clean layer separation), Java Android app (activity lifecycle), and C++ game simulation (agent class hierarchy)." },
+      { name: "Claude Code / MCP", proficiency: 3, description: "Built a Claude Code MCP plugin at Leidos on top of an institutional knowledge graph for automated onboarding and codebase Q&A, serving 30 engineers. Holds Anthropic's Claude AI Fluency Certification (2026)." },
+    ],
+  },
+  {
+    category: "Leadership & Product",
+    skills: [
+      { name: "Leadership",            proficiency: 4, description: "Directed 8 regional tennis tournaments and coached 3 athlete classes ages 8-65 as Tournament Director at Princeton Racket Club, holding dual director and head coach responsibilities." },
+      { name: "Communication",         proficiency: 4, description: "Pitched a dual-product airport accessibility platform to judges at the TEL Spatial Intelligence Ideathon, placing 2nd, and translated coaching feedback into skill-adapted regimens for athletes ranging from juniors to adults." },
+      { name: "Event Management",      proficiency: 3, description: "Ran 8 regional tournaments end to end at Princeton Racket Club, coordinating 380+ match entries with 100% on-time initialization." },
+      { name: "Entrepreneurship",      proficiency: 4, description: "Founded and scaled an independent tennis racket stringing business to 45+ clients, building the service tiers and marketing from the ground up." },
+      { name: "Operations",            proficiency: 3, description: "Managed a 12-20 racket monthly stringing workload across a standard 3-4 day SLA and a premium 2-day turnaround tier." },
+      { name: "Client Relations",      proficiency: 3, description: "Grew and retained 45+ clients for the stringing business through word-of-mouth referrals, local flyers, and high school team referral discounts." },
+      { name: "Inventory Management",  proficiency: 2, description: "Tracked and restocked stringing supplies and racket parts to meet variable monthly demand across a solo-run stringing business." },
+      { name: "Product Design",        proficiency: 3, description: "Designed a dual-product airport accessibility platform at the TEL Ideathon: a B2B tool for airline staff and a B2C app for family members tracking accessible relatives." },
+      { name: "Spatial Computing",     proficiency: 3, description: "Combined ZaiNAr sub-meter indoor positioning with SGA AR spatial computing to prototype real-time wheelchair-passenger tracking between airport gates at the TEL Ideathon." },
+      { name: "AR (Augmented Reality)",proficiency: 3, description: "Used SGA's AR spatial computing platform to build the airport wayfinding prototype pitched at the TEL Spatial Intelligence Ideathon, placing 2nd out of a competitive field." },
+      { name: "Accessibility",         proficiency: 3, description: "Designed the TEL Ideathon platform around accessibility from the start: real-time positioning for wheelchair passengers and a companion app for family visibility through the terminal." },
     ],
   },
 ];
