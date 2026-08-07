@@ -299,10 +299,10 @@ export const experienceSections: ExperienceSection[] = [
         role: "Software Engineer Intern",
         period: "May 2025 — Present",
         bullets: [
-          "Applied system design principles to optimize multi-objective satellite scheduling via memoization and dynamic programming in Python, then rewrote the engine in Rust for the team's production microservice ecosystem to meet strict reliability and latency requirements.",
-          "Designed a scalable Kafka event-driven data pipeline persisting to MongoDB with at-least-once delivery and full system decoupling for mission-critical satellite operations.",
-          "Containerized a Docker test suite on Kubernetes via GitHub Actions CI/CD, writing pytest coverage across boundary conditions and fault injection to catch regressions before production.",
-          "Built a Claude Code MCP plugin from scratch on top of an institutional knowledge graph mapping team ontologies and service dependencies, serving 30 engineers across a multi-team defense program.",
+          "Optimized multi-objective satellite scheduling with memoization and dynamic programming in Python, then rewrote the engine in Rust for the team's production microservice ecosystem.",
+          "Designed a Kafka event-driven pipeline persisting to MongoDB with at-least-once delivery, decoupling mission-critical satellite operations.",
+          "Containerized a Docker test suite on Kubernetes via GitHub Actions CI/CD, with pytest coverage for boundary conditions and fault injection.",
+          "Built a Claude Code MCP plugin on an institutional knowledge graph mapping team ontologies and service dependencies, serving 30 engineers across a multi-team defense program.",
         ],
         tags: ["Python", "Kafka", "Kubernetes", "Docker", "MongoDB", "Dynamic Programming", "GitHub Actions", "CI/CD", "Rust", "Neo4j"],
         imageSrc: "/images/experience/leidos.jpg",
@@ -314,13 +314,13 @@ export const experienceSections: ExperienceSection[] = [
     label: "Research & Biotech",
     items: [
       {
-        company: "The Kendziorski Lab — UW-Madison",
+        company: "The Kendziorski Lab, UW-Madison",
         role: "Student Research Intern",
         period: "September 2025 — Present",
         bullets: [
-          "Built end-to-end ML pipeline for single-cell RNA sequencing (scRNA-seq), next-generation sequencing (NGS), and spatial transcriptomics using PyTorch/TensorFlow deep learning; agentic framework selects and evaluates models across scVI/scANVI/scGen/AmortizedLDA for scalable production genomics, cutting GPU runtime from 80 to 27 minutes (300% reduction) on identical hardware; tracked via Weights & Biases.",
-          "Built TransferAgent, automating natural language processing (NLP) literature synthesis and cross-paper validity scoring across ~500 clinical genomics papers; cut review time by ~60%; collaborated with clinicians on clinical genomics impact.",
-          "Co-authored an ongoing clinical genomics publication targeting a peer-reviewed computational biology journal, validating model performance and pipeline reproducibility for glioblastoma gene therapy research across a 10-person interdisciplinary lab.",
+          "Built ML pipeline for scRNA-seq, NGS, and spatial transcriptomics; agentic framework selects models across scVI/scANVI/scGen/AmortizedLDA, cutting GPU runtime 300% (80→27 min).",
+          "Built TransferAgent, automating NLP literature synthesis and validity scoring across ~500 papers, cutting review time ~60%.",
+          "Co-authoring a clinical genomics publication on model performance and pipeline reproducibility for glioblastoma gene therapy research, 10-person interdisciplinary lab.",
         ],
         tags: ["Python", "R", "LLM APIs", "Scanpy", "Seurat", "CARD", "scRNA-seq", "scVI", "scANVI", "Weights & Biases", "GitHub Actions"],
         imageSrc: "/images/experience/kendziorski.jpg",
@@ -389,6 +389,7 @@ export const accomplishments: Accomplishment[] = [
       "Designed a B2B tool giving airline staff real-time sub-meter wheelchair-passenger tracking between gates, paired with a B2C app letting family track accessible relatives through the terminal.",
     ],
     tags: ["Spatial Computing", "AR", "Accessibility", "Product Design"],
+    imageSrc: "/images/accomplishments/tel-spatial-intelligence.png",
   },
 ];
 
@@ -415,19 +416,19 @@ export const projects: Project[] = [
     id: "lotus-health",
     title: "Lotus Health",
     description: "Financial risk engine over a 1,080-node ICD-10 comorbidity graph, querying 45 million insurance records to compute 5-year disease cost paths.",
-    detail: "Built probabilistic disease cost engine on a 1,080-node ICD-10 comorbidity graph across 45M records; RAG pipeline with semantic similarity search over the graph as vector database; full-stack React/Cytoscape.js frontend with real-time voice symptom input via Deepgram. Designed scalable system architecture separating NLP inference (Groq Llama) from deterministic financial logic (Python engine); ensures ACID-compliant, hallucination-free outputs — production-grade software design. Integrates with HIPAA-compliant, EHR-adjacent clinical decision support workflows; RAG matches patient symptoms to ICD-10 risk profiles via SQL-queried healthcare data; all outputs auditable.",
+    detail: "Built probabilistic disease cost engine on a 1,080-node ICD-10 comorbidity graph across 45M records; RAG pipeline with semantic similarity search over the graph as vector database; full-stack React/Cytoscape.js frontend with real-time voice symptom input via Deepgram. Designed scalable system architecture separating NLP inference (Groq Llama) from deterministic financial logic (Python engine); ensures ACID-compliant, hallucination-free outputs for production-grade software design. Integrates with HIPAA-compliant, EHR-adjacent clinical decision support workflows; RAG matches patient symptoms to ICD-10 risk profiles via SQL-queried healthcare data; all outputs auditable.",
     tags: ["Python", "SQL", "RAG", "ICD-10", "React.js", "Cytoscape.js", "Deepgram", "HealthTech", "FinTech"],
     github: "https://github.com/AkashGogate/lotus-health",
-    note: "Honorable mention — MadData (UW-Madison hackathon)",
+    note: "Honorable mention, MadData (UW-Madison hackathon)",
     imageSrc: "/images/projects/lotus-health.png",
   },
   {
     id: "kendziorski",
-    title: "LLM Agent Pipeline — Spatial Transcriptomics",
+    title: "LLM Agent Pipeline for Spatial Transcriptomics",
     description: "End-to-end ML pipeline for scRNA-seq, NGS, and spatial transcriptomics. Agentic framework selects and evaluates models across scVI/scANVI/scGen/AmortizedLDA; cut GPU computation 300%.",
     detail: "Built at the Kendziorski Lab (UW-Madison). End-to-end ML pipeline for single-cell RNA sequencing (scRNA-seq), next-generation sequencing (NGS), and spatial transcriptomics using PyTorch/TensorFlow deep learning; agentic framework selects and evaluates models across scVI/scANVI/scGen/AmortizedLDA for scalable production genomics, cutting GPU computation 300%; all experiments tracked via Weights & Biases. Companion TransferAgent automates NLP literature synthesis and cross-paper validity scoring for computational biology paper review, cutting reviewer time by ~60%; collaborated with clinicians on clinical genomics impact.",
     tags: ["Python", "PyTorch", "LLM APIs", "Scanpy", "Seurat", "CARD", "scVI", "scANVI", "NGS", "Spatial Transcriptomics", "R", "Weights & Biases", "Research"],
-    note: "Research project — no public repo",
+    note: "Research project, no public repo",
     imageSrc: "/images/projects/llm-pipeline.jpg",
   },
   {
@@ -464,7 +465,7 @@ export const projects: Project[] = [
     detail: "Built Android app in Java consuming USTA's GraphQL API to surface local tournament data via REST API; sole developer end-to-end. Uses Android SDK and HttpURLConnection to retrieve local tournament listings, registration deadlines, and location data; redirects to the USTA site for registration.",
     tags: ["Android SDK", "Java", "GraphQL", "Mobile"],
     github: "https://github.com/AkashGogate/myUSTA",
-    note: "APK available — see GitHub",
+    note: "APK available, see GitHub",
     imageSrc: "/images/projects/usta-explorer.jpg",
   },
   {
@@ -473,7 +474,7 @@ export const projects: Project[] = [
     description: "Random forest classifier on microRNA expression profiles to predict cancer biomarkers. 95% accuracy (p < 0.05).",
     detail: "Trained and validated Random Forest in R on micro-RNA expression sequences achieving 95% predictive accuracy (p < 0.05); validated via stratified k-fold cross-validation for cancer cell likelihood prediction. Feature space consists of miRNA expression levels as numeric predictors for binary classification, trained on public genomics datasets via Bioconductor.",
     tags: ["R", "Bioconductor", "Random Forest", "microRNA", "Genomics", "Research"],
-    note: "Research project — no public repo",
+    note: "Research project, no public repo",
     imageSrc: "/images/projects/mircore.jpg",
   },
 ];

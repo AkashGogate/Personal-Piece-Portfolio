@@ -218,8 +218,8 @@ export default function Experience() {
                       <span aria-hidden="true" className="font-display" style={{ position: "absolute", top: "1.5rem", right: "1.5rem", fontSize: "clamp(4rem, 8vw, 10rem)", fontWeight: 700, color: isDark ? "rgba(240,240,238,0.22)" : "rgba(240,240,238,0.35)", lineHeight: 1, userSelect: "none", pointerEvents: "none", letterSpacing: "-0.04em" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <div style={{ position: "absolute", inset: 0, padding: "2rem", overflowY: "auto", display: "flex", flexDirection: "column" }}>
-                        <div style={{ marginTop: "auto" }}>
+                      <div style={{ position: "absolute", inset: 0, padding: "2rem", paddingRight: "clamp(5rem, 10vw, 10.5rem)", overflowY: "auto", display: "flex", flexDirection: "column" }}>
+                        <div style={{ marginTop: "auto", textShadow: "0 2px 14px rgba(0,0,0,0.85)" }}>
                           <div className="section-label mb-2" style={{ color: "#52b788", fontSize: "0.85rem" }}>{item.category}</div>
                           <h3 className="font-display" style={{ fontSize: "clamp(1.3rem, 5vw, 3rem)", fontWeight: 400, color: "#f0f0ee", lineHeight: 1.1, marginBottom: "0.3rem" }}>
                             {item.company}
