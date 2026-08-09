@@ -63,9 +63,9 @@ Deployed to [GitHub Pages](https://pages.github.com/) via GitHub Actions. On eve
 
 1. Builds a fully static export (`output: 'export'`), served from the domain root (no `basePath`)
 2. Uploads the `./out` directory (including `public/CNAME`) as a Pages artifact
-3. Deploys to the custom domain: `https://personalpiecepotfolio.akashgogate.com`
+3. Deploys to the custom domain: `https://personalpieceportfolio.akashgogate.com`
 
-Configured via repo → **Settings → Pages**: Source = `GitHub Actions`, Custom domain = `personalpiecepotfolio.akashgogate.com`.
+Configured via repo → **Settings → Pages**: Source = `GitHub Actions`, Custom domain = `personalpieceportfolio.akashgogate.com`.
 
 ---
 
