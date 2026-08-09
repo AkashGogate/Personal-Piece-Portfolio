@@ -2,7 +2,7 @@
 
 A visually expressive personal portfolio built with Next.js, featuring animated interactions, scroll-driven reveals, and a DNA-inspired hero visual. Showcases experience, projects, and skills through motion and interactive detail (hover accents, click-to-expand drawers, theme-toggle transitions) as a demonstration of front-end craft. Deployed as a static export.
  
-**Live at:** https://akashgogate.github.io/PersonalPortfolio/
+**Live at:** [https://akashgogate.github.io/PersonalPortfolio/](https://personalpiecepotfolio.akashgogate.com/)
 
 ---
 
