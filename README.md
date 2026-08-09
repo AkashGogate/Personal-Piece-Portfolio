@@ -10,7 +10,7 @@ A visually expressive personal portfolio built with Next.js, featuring animated 
 
 | Tool | Role |
 |---|---|
-| **Next.js 14** (App Router) | Framework, static export |
+| **Next.js 16** (App Router) | Framework, static export |
 | **TypeScript** | Type safety throughout |
 | **Tailwind CSS** | Layout utilities only — all colors via CSS custom properties |
 | **Framer Motion** | Scroll-triggered fade/slide animations |
@@ -61,11 +61,11 @@ All experience bullets, project descriptions, skills, and resume links live in `
 
 Deployed to [GitHub Pages](https://pages.github.com/) via GitHub Actions. On every push to `main`, the workflow:
 
-1. Builds a fully static export (`output: 'export'`) with `basePath: /PortfolioWebsite`
-2. Uploads the `./out` directory as a Pages artifact
-3. Deploys to `https://akashgogate.github.io/PortfolioWebsite`
+1. Builds a fully static export (`output: 'export'`), served from the domain root (no `basePath`)
+2. Uploads the `./out` directory (including `public/CNAME`) as a Pages artifact
+3. Deploys to the custom domain: `https://personalpiecepotfolio.akashgogate.com`
 
-To enable: GitHub repo → **Settings → Pages → Source → GitHub Actions**.
+Configured via repo → **Settings → Pages**: Source = `GitHub Actions`, Custom domain = `personalpiecepotfolio.akashgogate.com`.
 
 ---
 
