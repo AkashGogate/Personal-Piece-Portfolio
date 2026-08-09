@@ -1,7 +1,7 @@
 # Akash Gogate Portfolio Website
 
-Personal portfolio with an editorial minimalist aesthetic. Built with Next.js 14, Tailwind CSS, Framer Motion, and anime.js — featuring scroll-driven animations, a dark/light mode toggle, and all content managed from a single data file.
-
+A visually expressive personal portfolio built with Next.js, featuring animated interactions, scroll-driven reveals, and a DNA-inspired hero visual. Showcases experience, projects, and skills through motion and interactive detail (hover accents, click-to-expand drawers, theme-toggle transitions) as a demonstration of front-end craft. Deployed as a static export.
+ 
 **Live at:** https://akashgogate.github.io/PersonalPortfolio/
 
 ---
