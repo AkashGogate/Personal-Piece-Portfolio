@@ -4,7 +4,7 @@
 
 Currently building LLM agent pipelines for spatial transcriptomics research at the Kendziorski Lab. Industry experience in backend infrastructure and distributed systems at Leidos.
 
-This is the design-forward build of the portfolio — animated interactions, scroll-driven reveals, and a DNA-inspired hero visual. A plainer, no-animation build of the same content lives at https://personalportfolio.akashgogate.com.
+This is the design-forward build of the portfolio — animated interactions, scroll-driven reveals, and a DNA-inspired hero visual. A plainer, no-animation build of the same content lives at https://personalportfoliowebsite.akashgogate.com.
 
 ## Site sections
 

@@ -16,7 +16,7 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
-const SITE_URL = "https://personalpiecepotfolio.akashgogate.com";
+const SITE_URL = "https://personalpieceportfolio.akashgogate.com";
 const TITLE = "Akash Gogate — Software Engineer & Researcher";
 const DESCRIPTION =
   "CS + Biology student at UW-Madison. Building at the intersection of distributed systems and biological data science.";

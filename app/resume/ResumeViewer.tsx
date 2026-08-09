@@ -44,7 +44,7 @@ export default function ResumeViewer() {
           ← Akash Gogate
         </a>
 
-        <span
+        <h1
           className="font-display"
           style={{
             fontSize: "1rem",
@@ -54,10 +54,11 @@ export default function ResumeViewer() {
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
+            margin: 0,
           }}
         >
           Resume
-        </span>
+        </h1>
 
         <a
           href={PDF}

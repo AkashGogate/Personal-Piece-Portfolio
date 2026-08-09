@@ -76,7 +76,7 @@ export default function About() {
               className="font-body"
               style={{ fontSize: "1.1rem", color: "var(--secondary)", letterSpacing: "0.02em" }}
             >
-              3.9 GPA · Dean&apos;s List · CS + Biology, UW-Madison · Graduating May 2028 ·{" "}
+              3.8 GPA · Dean&apos;s List · CS + Biology, UW-Madison · Graduating May 2028 ·{" "}
               <span style={{ color: "var(--primary)", fontWeight: 500 }}>Open to Summer 2027 internships & co-ops</span>
             </motion.p>
           </div>

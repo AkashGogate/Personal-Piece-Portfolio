@@ -23,7 +23,7 @@ export const education: Education = {
   school: "University of Wisconsin–Madison",
   degree: "B.S. Computer Science & Biology",
   period: "August 2024 — May 2028",
-  gpa: "3.9",
+  gpa: "3.8",
   honors: ["Dean's List: Fall 2024, Spring 2025, Fall 2025"],
   coursework: [
     {
