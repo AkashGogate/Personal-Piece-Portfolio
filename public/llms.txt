@@ -1,0 +1,24 @@
+# Akash Gogate
+
+> CS + Biology student at UW-Madison (graduating May 2028). Building at the intersection of distributed systems and biological data science.
+
+Currently building LLM agent pipelines for spatial transcriptomics research at the Kendziorski Lab. Industry experience in backend infrastructure and distributed systems at Leidos.
+
+This is the design-forward build of the portfolio — animated interactions, scroll-driven reveals, and a DNA-inspired hero visual. A plainer, no-animation build of the same content lives at https://personalportfolio.akashgogate.com.
+
+## Site sections
+
+- Hero: DNA-inspired animated intro
+- About: background, interests, current focus
+- Experience: work history (Leidos, Kendziorski Lab, and others)
+- Accomplishments: awards and recognitions
+- Projects: portfolio of software projects
+- Skills: technical skills, proficiency 4-5
+- Education: coursework at UW-Madison
+- Contact: email, GitHub, LinkedIn
+
+## Links
+
+- GitHub: https://github.com/AkashGogate
+- LinkedIn: https://www.linkedin.com/in/akash-gogate
+- Email: akash.gogate@gmail.com

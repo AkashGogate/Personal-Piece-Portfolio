@@ -16,15 +16,46 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+const SITE_URL = "https://personalpiecepotfolio.akashgogate.com";
+const TITLE = "Akash Gogate — Software Engineer & Researcher";
+const DESCRIPTION =
+  "CS + Biology student at UW-Madison. Building at the intersection of distributed systems and biological data science.";
+
 export const metadata: Metadata = {
-  title: "Akash Gogate — Software Engineer & Researcher",
-  description:
-    "CS + Biology student at UW-Madison. Building at the intersection of distributed systems and biological data science.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Akash Gogate",
-    description: "Software Engineer & Researcher",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: TITLE,
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Akash Gogate",
+  url: SITE_URL,
+  jobTitle: "Software Engineer & Researcher",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Wisconsin-Madison",
+  },
+  sameAs: [
+    "https://github.com/AkashGogate",
+    "https://www.linkedin.com/in/akash-gogate",
+  ],
 };
 
 export const viewport = {
@@ -41,6 +72,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <body className={`${playfair.variable} ${inter.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
