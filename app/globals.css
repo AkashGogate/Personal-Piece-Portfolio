@@ -89,6 +89,18 @@ section[id] {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 
+.nav-link {
+  color: var(--secondary);
+  transition: color 0.2s ease;
+}
+.nav-link:hover,
+.nav-link[aria-current="page"] {
+  color: var(--mint);
+}
+.nav-link[aria-current="page"] .nav-underline {
+  width: 100%;
+}
+
 .notfound-btn {
   border-color: var(--border);
   color: var(--secondary);

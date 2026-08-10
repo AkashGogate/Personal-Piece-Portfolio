@@ -27,8 +27,9 @@ export default function Nav() {
   const borderRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
-  const navLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const activeSectionRef = useRef<string>("");
+  const navigatingRef = useRef(false);
+  const navTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     let shown = false;
@@ -51,6 +52,8 @@ export default function Nav() {
         const total = Math.max(document.body.scrollHeight - window.innerHeight, 1);
         progressRef.current.style.width = `${(window.scrollY / total) * 100}%`;
       }
+      if (navigatingRef.current) return;
+
       let current = "";
       let bestTop = -Infinity;
       for (const link of links) {
@@ -70,14 +73,21 @@ export default function Nav() {
       if (current !== activeSectionRef.current) {
         activeSectionRef.current = current;
         setActiveSection(current);
-        navLinksRef.current.forEach((a, i) => {
-          if (!a) return;
-          a.style.color = links[i].href.slice(1) === current ? "var(--mint)" : "var(--secondary)";
-        });
+      }
+    };
+    const onScrollEnd = () => {
+      navigatingRef.current = false;
+      if (navTimeoutRef.current) {
+        window.clearTimeout(navTimeoutRef.current);
+        navTimeoutRef.current = null;
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scrollend", onScrollEnd);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scrollend", onScrollEnd);
+    };
   }, []);
 
   useEffect(() => {
@@ -86,6 +96,17 @@ export default function Nav() {
     headerRef.current.style.background = dark ? "rgba(17,17,16,0.88)" : "rgba(232,231,229,0.88)";
   }, [theme]);
 
+  const navigateTo = (href: string) => {
+    navigatingRef.current = true;
+    const id = href === "#" ? "" : href.slice(1);
+    activeSectionRef.current = id;
+    setActiveSection(id);
+    if (navTimeoutRef.current) window.clearTimeout(navTimeoutRef.current);
+    navTimeoutRef.current = window.setTimeout(() => {
+      navigatingRef.current = false;
+    }, 1200);
+    doNavigate(href);
+  };
 
   return (
     <>
@@ -104,30 +125,28 @@ export default function Nav() {
           type="button"
           className="font-display"
           style={{ color: "var(--primary)", fontWeight: 600, fontSize: "1.25rem", letterSpacing: "-0.01em", background: "none", border: "none", padding: 0, cursor: "pointer" }}
-          onClick={() => doNavigate("#")}
+          onClick={() => navigateTo("#")}
         >
           Akash Gogate
         </button>
 
         <nav className="hidden lg:flex items-center gap-5">
-          {links.map((l, i) => (
+          {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              ref={(el) => { navLinksRef.current[i] = el; }}
-              className="font-body relative group"
+              className="font-body nav-link relative group"
               aria-current={l.href.slice(1) === activeSection ? "page" : undefined}
-              onClick={(e) => { e.preventDefault(); doNavigate(l.href); }}
+              onClick={(e) => { e.preventDefault(); navigateTo(l.href); }}
               style={{
                 fontSize: "0.72rem",
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "var(--secondary)",
               }}
             >
               {l.label}
               <span
-                className="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-[width] duration-300"
+                className="nav-underline absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-[width] duration-300"
                 style={{ background: "var(--mint)" }}
               />
             </a>
@@ -241,7 +260,7 @@ export default function Nav() {
                     color: l.href.slice(1) === activeSection ? "var(--mint)" : "var(--secondary)",
                   }}
                   onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
-                  onClick={(e) => { e.preventDefault(); doNavigate(l.href); setOpen(false); }}
+                  onClick={(e) => { e.preventDefault(); navigateTo(l.href); setOpen(false); }}
                 >
                   {l.label}
                 </a>
@@ -277,7 +296,7 @@ export default function Nav() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.25 }}
-          onClick={() => doNavigate("#")}
+          onClick={() => navigateTo("#")}
           aria-label="Back to top"
           className="font-body hidden md:flex"
           style={{
