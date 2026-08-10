@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { animate } from "animejs";
 import { doNavigate } from "@/lib/navigate";
@@ -53,7 +53,12 @@ export default function Nav() {
       }
       let current = "";
       for (const link of links) {
-        const el = document.querySelector(link.href) as HTMLElement | null;
+        let el: HTMLElement | null = null;
+        try {
+          el = document.querySelector(link.href) as HTMLElement | null;
+        } catch {
+          continue;
+        }
         if (el && el.getBoundingClientRect().top <= 120) current = link.href.slice(1);
       }
       if (current !== activeSectionRef.current) {
@@ -89,14 +94,14 @@ export default function Nav() {
         style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: "var(--border)", opacity: 0 }}
       />
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        <a
-          href="#"
+        <button
+          type="button"
           className="font-display"
-          style={{ color: "var(--primary)", fontWeight: 600, fontSize: "1.25rem", letterSpacing: "-0.01em" }}
-          onClick={(e) => { e.preventDefault(); doNavigate("#"); }}
+          style={{ color: "var(--primary)", fontWeight: 600, fontSize: "1.25rem", letterSpacing: "-0.01em", background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          onClick={() => doNavigate("#")}
         >
           Akash Gogate
-        </a>
+        </button>
 
         <nav className="hidden lg:flex items-center gap-5">
           {links.map((l, i) => (
@@ -209,7 +214,7 @@ export default function Nav() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -253,14 +258,14 @@ export default function Nav() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>
 
     <AnimatePresence>
       {showFab && (
-        <motion.button
+        <m.button
           key="fab"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -300,7 +305,7 @@ export default function Nav() {
             <path d="M5 8V2M2 5l3-3 3 3"/>
           </svg>
           Top
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
     </>

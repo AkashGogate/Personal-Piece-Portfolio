@@ -76,7 +76,7 @@ export default function Hero() {
             }}
           >
             {"Exploring the space where systems think and biology inspires.".split(" ").map((word, i, arr) => (
-              <span key={i} className="hero-word" style={{ display: "inline-block", opacity: 0, whiteSpace: "pre" }}>
+              <span key={`${word}-${i}`} className="hero-word" style={{ display: "inline-block", opacity: 0, whiteSpace: "pre" }}>
                 {word}{i < arr.length - 1 ? " " : ""}
               </span>
             ))}
@@ -95,14 +95,14 @@ export default function Hero() {
 
           <p
             className="font-body hero-body"
-            style={{ fontSize: "1rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1rem" }}
+            style={{ fontSize: "1.1rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1rem" }}
           >
             From satellite observationscheduling at Leidos to LLM pipelines for cancer biology.
           </p>
 
           <p
             className="font-body hero-body"
-            style={{ fontSize: "0.97rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1.5rem" }}
+            style={{ fontSize: "1.07rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1.5rem" }}
           >
             CS + Biology at UW-Madison | Computing for biology&apos;s next frontier.
           </p>

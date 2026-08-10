@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -74,9 +75,11 @@ export default function RootLayout({
       <body className={`${playfair.variable} ${inter.variable}`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LazyMotion features={domAnimation}>{children}</LazyMotion>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -149,6 +149,13 @@ export default function HeroCanvas() {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("resize", onResize);
+      scene.traverse((obj) => {
+        const geom = (obj as THREE.Mesh | THREE.Line).geometry;
+        geom?.dispose();
+      });
+      dnaS1Mat.dispose();
+      dnaS2Mat.dispose();
+      baseMats.forEach((m) => m.dispose());
       renderer.dispose();
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
     };

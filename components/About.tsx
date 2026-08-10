@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { animate } from "animejs";
 import SectionLabel from "./SectionLabel";
 
@@ -31,7 +31,7 @@ export default function About() {
   return (
     <section id="about" ref={ref} style={{ background: "var(--bg)", position: "relative", overflow: "hidden", paddingTop: "clamp(3rem, 6vh, 6rem)", paddingBottom: "clamp(3rem, 6vh, 6rem)" }}>
       <div className="max-w-7xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease }}
@@ -48,7 +48,7 @@ export default function About() {
           >
             Hi, I&apos;m Akash.
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="flex gap-8" style={{ maxWidth: "52rem" }}>
           <div
@@ -58,27 +58,27 @@ export default function About() {
           />
           <div className="flex-1 space-y-8">
             {bio.map((text, i) => (
-              <motion.p
-                key={i}
+              <m.p
+                key={text}
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease }}
                 className="font-body"
-                style={{ fontSize: "1rem", color: "var(--secondary)", lineHeight: 1.8 }}
+                style={{ fontSize: "1.1rem", color: "var(--secondary)", lineHeight: 1.8 }}
               >
                 {text}
-              </motion.p>
+              </m.p>
             ))}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.38, ease }}
               className="font-body"
-              style={{ fontSize: "1.1rem", color: "var(--secondary)", letterSpacing: "0.02em" }}
+              style={{ fontSize: "1.2rem", color: "var(--secondary)", letterSpacing: "0.02em" }}
             >
               3.8 GPA · Dean&apos;s List · CS + Biology, UW-Madison · Graduating May 2028 ·{" "}
               <span style={{ color: "var(--primary)", fontWeight: 500 }}>Open to Summer 2027 internships & co-ops</span>
-            </motion.p>
+            </m.p>
           </div>
         </div>
       </div>

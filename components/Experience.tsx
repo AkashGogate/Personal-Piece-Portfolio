@@ -70,9 +70,19 @@ export default function Experience() {
       setCurrent(Math.round(progress * (N - 1)));
     };
 
-    window.addEventListener("scroll", update, { passive: true });
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     update();
-    return () => window.removeEventListener("scroll", update);
+    return () => window.removeEventListener("scroll", onScroll);
   }, [cardVw, isMobile]);
 
   useEffect(() => {
@@ -137,7 +147,7 @@ export default function Experience() {
           >
             {flatItems.map((item, i) => (
               <div
-                key={i}
+                key={`${item.company}-${item.role}`}
                 style={{
                   width: isMobile ? "100%" : `${cardVw}vw`,
                   flexShrink: 0,
@@ -189,9 +199,25 @@ export default function Experience() {
                           <div>
                             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
                               {item.tags.map((tag) => (
-                                <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.2)", color: "rgba(240,240,238,0.65)" }}>
+                                <a
+                                  key={tag}
+                                  href="#skills"
+                                  className="font-body"
+                                  style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.2)", color: "rgba(240,240,238,0.65)", cursor: "pointer", textDecoration: "none", transition: "color 0.2s, border-color 0.2s" }}
+                                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+                                  onMouseEnter={(e) => {
+                                    const el = e.currentTarget as HTMLElement;
+                                    el.style.color = "var(--mint)";
+                                    el.style.borderColor = "var(--mint)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    const el = e.currentTarget as HTMLElement;
+                                    el.style.color = "rgba(240,240,238,0.65)";
+                                    el.style.borderColor = "rgba(240,240,238,0.2)";
+                                  }}
+                                >
                                   {tag}
-                                </span>
+                                </a>
                               ))}
                             </div>
                             <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.45)" }}>
@@ -242,9 +268,25 @@ export default function Experience() {
                             <div>
                               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
                                 {item.tags.map((tag) => (
-                                  <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.25)", color: "rgba(240,240,238,0.7)" }}>
+                                  <a
+                                    key={tag}
+                                    href="#skills"
+                                    className="font-body"
+                                    style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid rgba(240,240,238,0.25)", color: "rgba(240,240,238,0.7)", cursor: "pointer", textDecoration: "none", transition: "color 0.2s, border-color 0.2s" }}
+                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+                                    onMouseEnter={(e) => {
+                                      const el = e.currentTarget as HTMLElement;
+                                      el.style.color = "var(--mint)";
+                                      el.style.borderColor = "var(--mint)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      const el = e.currentTarget as HTMLElement;
+                                      el.style.color = "rgba(240,240,238,0.7)";
+                                      el.style.borderColor = "rgba(240,240,238,0.25)";
+                                    }}
+                                  >
                                     {tag}
-                                  </span>
+                                  </a>
                                 ))}
                               </div>
                               <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.5)" }}>
@@ -283,9 +325,25 @@ export default function Experience() {
                       <div>
                         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
                           {item.tags.map((tag) => (
-                            <span key={tag} className="font-body" style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid var(--border)", color: "var(--secondary)" }}>
+                            <a
+                              key={tag}
+                              href="#skills"
+                              className="font-body"
+                              style={{ fontSize: "0.78rem", letterSpacing: "0.09em", textTransform: "uppercase", padding: "4px 10px", border: "1px solid var(--border)", color: "var(--secondary)", cursor: "pointer", textDecoration: "none", transition: "color 0.2s, border-color 0.2s" }}
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+                              onMouseEnter={(e) => {
+                                const el = e.currentTarget as HTMLElement;
+                                el.style.color = "var(--mint)";
+                                el.style.borderColor = "var(--mint)";
+                              }}
+                              onMouseLeave={(e) => {
+                                const el = e.currentTarget as HTMLElement;
+                                el.style.color = "var(--secondary)";
+                                el.style.borderColor = "var(--border)";
+                              }}
+                            >
                               {tag}
-                            </span>
+                            </a>
                           ))}
                         </div>
                         <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "var(--secondary)", opacity: 0.6 }}>
@@ -303,9 +361,9 @@ export default function Experience() {
         {!isMobile && (
           <div style={{ padding: "0.9rem clamp(1.5rem, 6vw, 5rem)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid var(--border)" }}>
             <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-            {flatItems.map((_, i) => (
+            {flatItems.map((item, i) => (
               <button
-                key={i}
+                key={`${item.company}-${item.role}`}
                 type="button"
                 aria-label={`Go to slide ${i + 1}`}
                 onClick={() => scrollToCard(i)}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 
 const ease = [0.19, 1, 0.22, 1] as [number, number, number, number];
@@ -48,7 +48,7 @@ function EmailPicker({ link, onClose }: { link: Extract<LinkItem, { isEmail: tru
   ];
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ function EmailPicker({ link, onClose }: { link: Extract<LinkItem, { isEmail: tru
           {opt.label}
         </a>
       ))}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -109,17 +109,17 @@ export default function Contact() {
         <div style={{ borderTop: "1px solid var(--border)", marginBottom: "4rem" }} />
 
         <div className="mb-4 overflow-hidden">
-          <motion.div
+          <m.div
             initial={{ y: "100%" }}
             animate={inView ? { y: "0%" } : {}}
             transition={{ duration: 0.7, ease }}
           >
             <SectionLabel number="07" label="Contact" className="mb-4" />
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="overflow-hidden mb-6">
-          <motion.h2
+          <m.h2
             className="font-display"
             style={{ fontSize: "clamp(2.1rem, 3.5vw, 3.2rem)", fontWeight: 400, color: "var(--primary)" }}
             initial={{ y: "100%" }}
@@ -127,23 +127,23 @@ export default function Contact() {
             transition={{ duration: 0.7, delay: 0.06, ease }}
           >
             Get in touch
-          </motion.h2>
+          </m.h2>
         </div>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.18, ease }}
           className="font-body mb-8 max-w-xl"
-          style={{ fontSize: "1rem", color: "var(--secondary)", lineHeight: 1.8 }}
+          style={{ fontSize: "1.1rem", color: "var(--secondary)", lineHeight: 1.8 }}
         >
           Open to Summer 2027 internships and co-ops in software engineering, AI/ML, data science, biotech, and computational biology research. Available May 15 – Sep 1. Email is
           the best way to reach me.
-        </motion.p>
+        </m.p>
 
         <div className="space-y-6">
           {links.map((l, i) => (
-            <motion.div
+            <m.div
               key={l.id}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -201,14 +201,14 @@ export default function Contact() {
                   {l.value}
                 </a>
               )}
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         <div className="mt-12 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <div
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-body"
-            style={{ fontSize: "0.85rem", color: "var(--secondary)" }}
+            style={{ fontSize: "0.93rem", color: "var(--secondary)" }}
           >
             <span suppressHydrationWarning>Akash Gogate — {new Date().getFullYear()}</span>
             <span>Built with Next.js · Framer Motion · Tailwind CSS</span>

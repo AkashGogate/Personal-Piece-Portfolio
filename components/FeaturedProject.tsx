@@ -24,7 +24,7 @@ export default function FeaturedProject() {
         <span className="section-label" style={{ color: isDark ? "var(--mint)" : "#52b788", display: "block", marginBottom: "0.5rem", fontSize: "0.85rem" }}>
           Featured Project
         </span>
-        <p className="font-body" style={{ fontSize: "1.05rem", color: bodyColor, lineHeight: 1.8, marginBottom: "1rem" }}>
+        <p className="font-body" style={{ fontSize: "1.15rem", color: bodyColor, lineHeight: 1.8, marginBottom: "1rem" }}>
           {featured.detail}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.25rem" }}>
@@ -44,7 +44,7 @@ export default function FeaturedProject() {
             target="_blank"
             rel="noopener noreferrer"
             className="font-body inline-block"
-            style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "10px 22px", background: "var(--mint)", color: "#f0f0ee" }}
+            style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "10px 22px", background: "var(--mint)", color: "#0f0f0f" }}
           >
             View on GitHub ↗
           </a>

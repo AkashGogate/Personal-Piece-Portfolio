@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 import { skillGroups, projects, type Skill } from "@/data/resume";
 
@@ -59,7 +59,7 @@ function SkillCard({ skill, rect }: CardState) {
     : { top: rect.bottom + GAP };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: isNearBottom ? -5 : 5 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: isNearBottom ? -3 : 3 }}
@@ -115,7 +115,7 @@ function SkillCard({ skill, rect }: CardState) {
       <p
         className="font-body"
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.9rem",
           color: "var(--secondary)",
           lineHeight: 1.65,
           marginBottom: relatedProjects.length > 0 ? 14 : 0,
@@ -153,7 +153,7 @@ function SkillCard({ skill, rect }: CardState) {
           </div>
         </>
       )}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -162,7 +162,7 @@ function SkillAccordionContent({ skill }: { skill: Skill }) {
     p.tags.some((t) => normalize(t) === normalize(skill.name))
   );
   return (
-    <motion.div
+    <m.div
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
@@ -176,7 +176,7 @@ function SkillAccordionContent({ skill }: { skill: Skill }) {
           </p>
           <ProficiencyDots level={skill.proficiency} />
         </div>
-        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: relatedProjects.length > 0 ? 10 : 0 }}>
+        <p className="font-body" style={{ fontSize: "0.9rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: relatedProjects.length > 0 ? 10 : 0 }}>
           {skill.description}
         </p>
         {relatedProjects.length > 0 && (
@@ -197,7 +197,7 @@ function SkillAccordionContent({ skill }: { skill: Skill }) {
           </>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -224,7 +224,7 @@ export default function Skills() {
       {!isMobile && <AnimatePresence>{card && <SkillCard {...card} />}</AnimatePresence>}
 
       <div className="max-w-7xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -248,7 +248,7 @@ export default function Skills() {
             <p
               className="font-body"
               style={{
-                fontSize: "1.1rem",
+                fontSize: "1.2rem",
                 color: "var(--secondary)",
                 lineHeight: 1.75,
                 maxWidth: "44ch",
@@ -258,9 +258,9 @@ export default function Skills() {
               real projects, and the list keeps growing.
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -353,7 +353,7 @@ export default function Skills() {
                         {skill.name}
                       </span>
                       {si < group.skills.length - 1 && (
-                        <span style={{ color: "var(--border)", margin: "0 12px", userSelect: "none", fontSize: "1rem" }}>·</span>
+                        <span style={{ color: "var(--secondary)", margin: "0 12px", userSelect: "none", fontSize: "1rem" }}>·</span>
                       )}
                     </span>
                   ))}
@@ -361,9 +361,9 @@ export default function Skills() {
               )}
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 0.45 } : {}}
           transition={{ duration: 0.4, delay: 0.3 }}
@@ -371,7 +371,7 @@ export default function Skills() {
           style={{ marginTop: "1rem" }}
         >
           {isMobile ? "Tap any skill to explore" : "Hover over any skill to explore"}
-        </motion.p>
+        </m.p>
       </div>
     </section>
   );

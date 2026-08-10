@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 
 interface Props {
@@ -59,7 +59,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
   return (
     <div ref={outerRef} id={id} style={{ height: "250vh", position: "relative" }}>
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}>
-        <motion.div
+        <m.div
           className="absolute inset-0"
           animate={{ opacity: Math.max(0, 1 - progress * 1.4) }}
           transition={{ duration: 0 }}
@@ -73,7 +73,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
             priority
           />
           <div style={{ position: "absolute", inset: 0, background: bgOverlay }} />
-        </motion.div>
+        </m.div>
 
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1 }}>
           <div style={{
@@ -95,7 +95,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
               style={{ objectFit: "cover", filter: isDark ? "none" : "saturate(0.92)" }}
             />
             <div style={{ position: "absolute", inset: 0, background: cardOverlay }} />
-            <motion.div
+            <m.div
               animate={{ opacity: progress > 0.82 ? 1 : 0, y: progress > 0.82 ? 0 : 16 }}
               transition={{ duration: progress > 0.82 ? 0.5 : 0 }}
               style={{
@@ -109,7 +109,7 @@ export default function ScrollExpandMedia({ imageSrc, title, id, children }: Pro
               }}
             >
               {children}
-            </motion.div>
+            </m.div>
           </div>
         </div>
 

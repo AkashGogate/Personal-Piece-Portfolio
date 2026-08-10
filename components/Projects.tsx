@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { animate } from "animejs";
 import SectionLabel from "./SectionLabel";
 import { projects, type Project } from "@/data/resume";
@@ -128,21 +128,42 @@ function ProjectDrawer({
           </div>
           <p
             className="font-body mb-6"
-            style={{ fontSize: "1.05rem", color: "var(--secondary)", lineHeight: 1.8 }}
+            style={{ fontSize: "1.15rem", color: "var(--secondary)", lineHeight: 1.8 }}
           >
             {project.detail}
           </p>
-          <p
+          <div
             className="font-body mb-2"
-            style={{ fontSize: "0.88rem", color: "var(--secondary)", letterSpacing: "0.04em" }}
+            style={{ fontSize: "0.88rem", color: "var(--secondary)", letterSpacing: "0.04em", display: "flex", flexWrap: "wrap", gap: "0.3rem" }}
           >
-            {project.tags.join(" / ")}
-          </p>
+            {project.tags.map((tag, i) => (
+              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                <a
+                  href="#skills"
+                  style={{ color: "inherit", textDecoration: "none", cursor: "pointer", transition: "color 0.2s" }}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}
+                >
+                  {tag}
+                </a>
+                {i < project.tags.length - 1 && <span aria-hidden="true">/</span>}
+              </span>
+            ))}
+          </div>
           <p
             className="font-body mb-8"
-            style={{ fontSize: "0.68rem", color: "var(--secondary)", opacity: 0.6, letterSpacing: "0.06em" }}
+            style={{ fontSize: "0.8rem", letterSpacing: "0.05em", color: "var(--secondary)" }}
           >
-            Curious about a skill? <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCloseAndNavigate("#skills"); }}>Explore in Skills ↗</a>
+            See more in the{" "}
+            <a
+              href="#skills"
+              style={{ textDecoration: "underline", color: "var(--primary)" }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCloseAndNavigate("#skills"); }}
+            >
+              Skills
+            </a>{" "}
+            section ↗
           </p>
           <div className="flex gap-6 items-center">
             {project.github && (
@@ -208,7 +229,7 @@ export default function Projects() {
     <>
       <section id="projects" style={{ background: "var(--bg)", position: "relative", overflow: "hidden", paddingTop: "clamp(3rem, 6vh, 6rem)", paddingBottom: "clamp(3rem, 6vh, 6rem)", paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
         <div className="max-w-4xl mx-auto">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-80px" }}
@@ -226,11 +247,11 @@ export default function Projects() {
             >
               Things I&apos;ve built
             </h2>
-          </motion.div>
+          </m.div>
 
           <div>
             {projects.map((p, i) => (
-              <motion.div
+              <m.div
                 key={p.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -239,10 +260,9 @@ export default function Projects() {
               >
                 <div
                   data-project-id={p.id}
-                  role="button"
-                  tabIndex={0}
                   className="cursor-pointer py-8 flex gap-6 items-start"
                   style={{
+                    position: "relative",
                     borderLeft: hoveredId === p.id
                       ? "2px solid var(--mint)"
                       : isMobile ? "2px solid var(--border)" : "2px solid transparent",
@@ -250,8 +270,6 @@ export default function Projects() {
                     transition: "border-color 0.2s, padding-left 0.2s",
                     willChange: !isMobile && hoveredId === p.id ? "transform" : "auto",
                   }}
-                  onClick={(e) => { openedFromRef.current = e.currentTarget as HTMLElement; setSelected(p); }}
-                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openedFromRef.current = e.currentTarget as HTMLElement; setSelected(p); } }}
                   onMouseEnter={() => setHoveredId(p.id)}
                   onMouseMove={(e) => {
                     const el = e.currentTarget as HTMLElement;
@@ -270,6 +288,12 @@ export default function Projects() {
                     setTimeout(() => { el.style.transition = "border-color 0.2s, padding-left 0.2s"; }, 400);
                   }}
                 >
+                  <button
+                    type="button"
+                    aria-label={`View details: ${p.title}`}
+                    onClick={(e) => { openedFromRef.current = e.currentTarget as HTMLElement; setSelected(p); }}
+                    style={{ position: "absolute", inset: 0, zIndex: 1, background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}
+                  />
                   <span
                     className="font-display flex-shrink-0 mt-1"
                     style={{
@@ -300,7 +324,7 @@ export default function Projects() {
                     </h3>
                     <p
                       className="font-body mb-3"
-                      style={{ fontSize: "1.02rem", color: "var(--secondary)", lineHeight: 1.7 }}
+                      style={{ fontSize: "1.12rem", color: "var(--secondary)", lineHeight: 1.7 }}
                     >
                       {p.description}
                     </p>
@@ -311,9 +335,25 @@ export default function Projects() {
                           fontSize: "0.85rem",
                           color: "var(--secondary)",
                           letterSpacing: "0.04em",
+                          display: "inline-flex",
+                          flexWrap: "wrap",
+                          gap: "0.3rem",
                         }}
                       >
-                        {p.tags.slice(0, 4).join(" / ")}
+                        {p.tags.slice(0, 4).map((tag, i, arr) => (
+                          <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                            <a
+                              href="#skills"
+                              style={{ color: "inherit", textDecoration: "none", cursor: "pointer", transition: "color 0.2s", position: "relative", zIndex: 2 }}
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+                              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+                              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}
+                            >
+                              {tag}
+                            </a>
+                            {i < arr.length - 1 && <span aria-hidden="true">/</span>}
+                          </span>
+                        ))}
                       </span>
                       <span
                         className="font-body"
@@ -324,13 +364,13 @@ export default function Projects() {
                           letterSpacing: "0.06em",
                         }}
                       >
-                        · <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills ↗</a>
+                        · <a href="#skills" style={{ textDecoration: "underline", color: "inherit", position: "relative", zIndex: 2 }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills ↗</a>
                       </span>
                       <span
                         className="font-body"
                         style={{
                           fontSize: "0.7rem",
-                          color: isMobile ? "var(--secondary)" : hoveredId === p.id ? "var(--mint)" : "var(--border)",
+                          color: isMobile ? "var(--secondary)" : hoveredId === p.id ? "var(--mint)" : "var(--secondary)",
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
                         }}
@@ -347,6 +387,8 @@ export default function Projects() {
                             color: "var(--secondary)",
                             textDecoration: "underline",
                             textDecorationColor: "var(--border)",
+                            position: "relative",
+                            zIndex: 2,
                           }}
                           onClick={(e) => e.stopPropagation()}
                         >
@@ -367,7 +409,7 @@ export default function Projects() {
                 {i < projects.length - 1 && (
                   <div style={{ borderTop: "1px solid var(--border)" }} />
                 )}
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

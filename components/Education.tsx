@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 import { education, highSchool, type CourseItem } from "@/data/resume";
 
@@ -52,7 +52,7 @@ function CourseCard({ course, rect }: CardState) {
     : { top: rect.bottom + GAP };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: isNearBottom ? -5 : 5 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: isNearBottom ? -3 : 3 }}
@@ -108,7 +108,7 @@ function CourseCard({ course, rect }: CardState) {
       <p
         className="font-body"
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.9rem",
           color: "var(--secondary)",
           lineHeight: 1.65,
           marginBottom: 14,
@@ -124,20 +124,20 @@ function CourseCard({ course, rect }: CardState) {
       <p
         className="font-body"
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.9rem",
           color: "var(--secondary)",
           lineHeight: 1.6,
         }}
       >
         {course.useCase}
       </p>
-    </motion.div>
+    </m.div>
   );
 }
 
 function CourseAccordionContent({ course }: { course: CourseItem }) {
   return (
-    <motion.div
+    <m.div
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
@@ -151,16 +151,16 @@ function CourseAccordionContent({ course }: { course: CourseItem }) {
           </p>
           <ProficiencyDots level={course.proficiency} />
         </div>
-        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: 10 }}>
+        <p className="font-body" style={{ fontSize: "0.9rem", color: "var(--secondary)", lineHeight: 1.65, marginBottom: 10 }}>
           {course.description}
         </p>
         <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0" }} />
         <p className="section-label" style={{ marginBottom: 5, fontSize: "0.62rem" }}>Applied to</p>
-        <p className="font-body" style={{ fontSize: "0.82rem", color: "var(--secondary)", lineHeight: 1.6 }}>
+        <p className="font-body" style={{ fontSize: "0.9rem", color: "var(--secondary)", lineHeight: 1.6 }}>
           {course.useCase}
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -187,7 +187,7 @@ export default function Education() {
       {!isMobile && <AnimatePresence>{card && <CourseCard {...card} />}</AnimatePresence>}
 
       <div className="max-w-7xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease }}
@@ -211,7 +211,7 @@ export default function Education() {
           <p
             className="font-body"
             style={{
-              fontSize: "1rem",
+              fontSize: "1.1rem",
               color: "var(--secondary)",
               lineHeight: 1.6,
               marginBottom: "0.9rem",
@@ -233,9 +233,9 @@ export default function Education() {
               </span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
@@ -248,7 +248,7 @@ export default function Education() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
           {education.coursework.map((group, gi) => (
-            <motion.div
+            <m.div
               key={group.area}
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -266,7 +266,7 @@ export default function Education() {
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start", width: "100%" }}>
                 {group.courses.map((course, ci) => (
-                  <motion.div
+                  <m.div
                     key={course.name}
                     initial={{ opacity: 0, x: -8 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -329,14 +329,14 @@ export default function Education() {
                         {course.name}
                       </span>
                     )}
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.4, ease }}
@@ -357,7 +357,7 @@ export default function Education() {
             >
               {highSchool.school}
             </h3>
-            <p className="font-body" style={{ fontSize: "1.02rem", color: "var(--secondary)" }}>
+            <p className="font-body" style={{ fontSize: "1.12rem", color: "var(--secondary)" }}>
               {highSchool.period}
             </p>
           </div>
@@ -372,7 +372,7 @@ export default function Education() {
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start", width: "100%" }}>
                 {group.courses.map((course, ci) => (
-                  <motion.div
+                  <m.div
                     key={course.name}
                     initial={{ opacity: 0, x: -8 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -435,14 +435,14 @@ export default function Education() {
                         {course.name}
                       </span>
                     )}
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 0.45 } : {}}
           transition={{ duration: 0.4, delay: 0.5 }}
@@ -450,7 +450,7 @@ export default function Education() {
           style={{ marginTop: "2rem" }}
         >
           {isMobile ? "Tap any course to explore" : "Hover over any course to explore"}
-        </motion.p>
+        </m.p>
       </div>
     </section>
   );
