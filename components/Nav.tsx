@@ -52,6 +52,7 @@ export default function Nav() {
         progressRef.current.style.width = `${(window.scrollY / total) * 100}%`;
       }
       let current = "";
+      let bestTop = -Infinity;
       for (const link of links) {
         let el: HTMLElement | null = null;
         try {
@@ -59,7 +60,12 @@ export default function Nav() {
         } catch {
           continue;
         }
-        if (el && el.getBoundingClientRect().top <= 120) current = link.href.slice(1);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= 120 && top > bestTop) {
+          bestTop = top;
+          current = link.href.slice(1);
+        }
       }
       if (current !== activeSectionRef.current) {
         activeSectionRef.current = current;

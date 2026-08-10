@@ -28,12 +28,12 @@ function AccomplishmentCard({ item }: { item: (typeof accomplishments)[number] }
       }}
     >
       {item.imageSrc && (
-        <div style={{ position: "relative", width: "clamp(220px, 42%, 380px)", flex: "0 0 auto", aspectRatio: "1 / 1", overflow: "hidden", alignSelf: "center" }}>
-          <Image src={`${BASE}${item.imageSrc}`} alt={item.title} fill sizes="(max-width: 640px) 220px, 380px" style={{ objectFit: "cover" }} />
+        <div style={{ position: "relative", width: "clamp(280px, 46%, 480px)", flex: "0 0 auto", aspectRatio: "1 / 1", overflow: "hidden", alignSelf: "center" }}>
+          <Image src={`${BASE}${item.imageSrc}`} alt={item.title} fill sizes="(max-width: 640px) 280px, 480px" style={{ objectFit: "cover" }} />
         </div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", flex: "1 1 260px", minWidth: 0 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", flex: "1 1 260px", minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
           <span
             className="font-body"
@@ -55,17 +55,17 @@ function AccomplishmentCard({ item }: { item: (typeof accomplishments)[number] }
         </div>
 
         <div>
-          <h3 className="font-display" style={{ fontSize: "1.8rem", fontWeight: 400, color: "var(--primary)", letterSpacing: "-0.02em" }}>
+          <h3 className="font-display" style={{ fontSize: "2rem", fontWeight: 400, color: "var(--primary)", letterSpacing: "-0.02em" }}>
             {item.title}
           </h3>
-          <p className="font-body" style={{ fontSize: "1.1rem", color: "var(--secondary)", marginTop: "0.25rem" }}>
+          <p className="font-body" style={{ fontSize: "1.15rem", color: "var(--secondary)", marginTop: "0.35rem" }}>
             {item.organization}
           </p>
         </div>
 
-        <ul style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+        <ul style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
           {item.bullets.map((bullet) => (
-            <li key={bullet} className="font-body" style={{ fontSize: "1.2rem", color: "var(--secondary)", lineHeight: 1.7, paddingLeft: "1.4rem", position: "relative" }}>
+            <li key={bullet} className="font-body" style={{ fontSize: "1.25rem", color: "var(--secondary)", lineHeight: 1.75, paddingLeft: "1.4rem", position: "relative" }}>
               <span style={{ position: "absolute", left: 0, top: 0, color: "var(--mint)" }}>—</span>
               {bullet}
             </li>

@@ -89,6 +89,16 @@ section[id] {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 
+.notfound-btn {
+  border-color: var(--border);
+  color: var(--secondary);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.notfound-btn:hover {
+  border-color: var(--mint);
+  color: var(--mint);
+}
+
 .skills-row {
   display: grid;
   grid-template-columns: 160px 1fr;
