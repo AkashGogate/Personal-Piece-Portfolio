@@ -75,7 +75,7 @@ export default function Hero() {
               maxWidth: "18ch",
             }}
           >
-            {"I build software for problems in biology.".split(" ").map((word, i, arr) => (
+            {"Exploring the space where systems think and biology inspires.".split(" ").map((word, i, arr) => (
               <span key={`${word}-${i}`} className="hero-word" style={{ display: "inline-block", opacity: 0, whiteSpace: "pre" }}>
                 {word}{i < arr.length - 1 ? " " : ""}
               </span>
@@ -104,7 +104,7 @@ export default function Hero() {
             className="font-body hero-body"
             style={{ fontSize: "1.07rem", color: "var(--secondary)", lineHeight: 1.75, opacity: 0, maxWidth: "36rem", marginBottom: "1.5rem" }}
           >
-            CS + Biology at UW-Madison | Computing for biology research.
+            CS + Biology at UW-Madison | Computing for biology&apos;s next frontier.
           </p>
 
           <div className="hero-gh" style={{ opacity: 0, marginBottom: "1.75rem" }}>

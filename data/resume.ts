@@ -297,7 +297,7 @@ export const experienceSections: ExperienceSection[] = [
       {
         company: "Leidos",
         role: "Software Engineer Intern",
-        period: "May 2025 — Present",
+        period: "May 2025 - Present",
         bullets: [
           "Optimized multi-objective satellite scheduling with memoization and dynamic programming in Python, then rewrote the engine in Rust for the team's production microservice ecosystem.",
           "Designed a Kafka event-driven pipeline persisting to MongoDB with at-least-once delivery, decoupling mission-critical satellite operations.",
@@ -316,7 +316,7 @@ export const experienceSections: ExperienceSection[] = [
       {
         company: "The Kendziorski Lab, UW-Madison",
         role: "Student Research Intern",
-        period: "September 2025 — Present",
+        period: "September 2025 - Present",
         bullets: [
           "Built ML pipeline for scRNA-seq, NGS, and spatial transcriptomics; agentic framework selects models across scVI/scANVI/scGen/AmortizedLDA, cutting GPU runtime 300% (80→27 min).",
           "Built TransferAgent, automating NLP literature synthesis and validity scoring across ~500 papers, cutting review time ~60%.",
@@ -328,7 +328,7 @@ export const experienceSections: ExperienceSection[] = [
       {
         company: "Inspirit AI",
         role: "Machine Learning Research Intern",
-        period: "Sep 2022 — Mar 2023",
+        period: "Sep 2022 - Mar 2023",
         bullets: [
           "Built skin cancer detection pipeline (OpenCV + scikit-learn, NumPy/Pandas) achieving 95% classification accuracy on ~70,000 dermoscopic images; published as first author on 'Early Skin Cancer Detection Improvement' through Inspirit AI.",
           "Trained and validated Random Forest classifier on miRNA sequences achieving 95% predictive accuracy (p < 0.05); validated via stratified k-fold cross-validation for cancer cell likelihood prediction.",
@@ -345,7 +345,7 @@ export const experienceSections: ExperienceSection[] = [
       {
         company: "Princeton Racket Club",
         role: "Tennis Coach & Tournament Director",
-        period: "May 2024 — Aug 2024",
+        period: "May 2024 - Aug 2024",
         bullets: [
           "Directed 8 regional tournaments (380+ match entries, 100% on-time initialization) while coaching 3 classes of 8-10 athletes ages 8-65, in a dual tournament director and head coach role.",
           "Guided 3 junior athletes to 150+ regional ranking points and 5 adults up a full 0.5 NTRP competitive level through data-driven, skill-adapted coaching regimens.",
@@ -356,7 +356,7 @@ export const experienceSections: ExperienceSection[] = [
       {
         company: "Tennis Racket Stringing Services",
         role: "Founder",
-        period: "Jan 2019 — Present",
+        period: "Jan 2019 - Present",
         bullets: [
           "Founded and scaled an independent racket stringing business to 45+ clients, servicing 12-20 rackets monthly with a premium 2-day turnaround tier alongside the standard 3-4 day SLA.",
           "Grew the client base through multi-channel grassroots marketing: word-of-mouth referrals, flyers at local parks, high school team referral discounts, and an Instagram page of stringing craftsmanship.",
@@ -435,7 +435,7 @@ export const projects: Project[] = [
     id: "sat-generator",
     title: "SAT Practice Test Generator",
     description: "GPT-4o tutor that finds your weak SAT domains and generates exam-matched practice questions on demand.",
-    detail: "Built full-stack SAT prep app (TypeScript/JavaScript/React.js + Node.js/FastAPI); integrated GPT-4o generative AI for adaptive question generation via REST API with session state, scoring, and configurable difficulty; agile version control. Backend separates LLM integration layer, API layer, and session management; clean object-oriented design with stateful session logic and auditable answer validation pipeline.",
+    detail: "Built a full-stack SAT prep app (React.js/TypeScript + FastAPI) covering all 3 SAT sections (Math, Reading, Writing), with 5 pre-cached test sets per section (75 questions total) and GPT-4o adaptive question generation layered on top for score prediction and unscored practice modes. Backend separates the LLM integration, REST API, and session-state layers, with a rubric-based answer validation pipeline and per-session difficulty recalibration. Tested by friends and family beyond solo development.",
     tags: ["TypeScript", "React.js", "Node.js", "FastAPI", "GPT-4o", "Python"],
     github: "https://github.com/AkashGogate/SATPracticeTestGenerator",
     imageSrc: "/images/projects/sat-generator.jpg",
@@ -444,7 +444,7 @@ export const projects: Project[] = [
     id: "hand-tracking",
     title: "Computer Vision Hand Tracking System",
     description: "Real-time hand gesture and joint angle tracking pipeline using OpenCV and MediaPipe. Outputs biomechanical data for clinical motion capture, rehabilitation, and sports performance analysis.",
-    detail: "Built real-time hand gesture and joint angle tracking pipeline (OpenCV + MediaPipe); outputs biomechanical data for clinical motion capture, rehabilitation monitoring, and sports performance analysis. Processes live webcam input with OpenCV for frame capture and MediaPipe for hand landmark detection; outputs joint positions, wrist orientation, and finger positions at video frame rate. Dual application: sports coaching (quantitative grip and swing feedback) and clinical biomechanics.",
+    detail: "Built a real-time biomechanical tracking pipeline (OpenCV + MediaPipe) running at 60 FPS with sub-2-second end-to-end latency, tracking all 21 hand landmarks alongside full-body pose simultaneously. Computes joint angles in degrees from 3D landmark coordinates, classifies hand gestures from configuration topology, and outputs structured multi-channel data for sports performance analysis and clinical motion capture.",
     tags: ["Python", "OpenCV", "MediaPipe", "Computer Vision"],
     github: "https://github.com/AkashGogate/HandOrientationTracking",
     imageSrc: "/images/projects/hand-tracking.jpg",
@@ -452,8 +452,8 @@ export const projects: Project[] = [
   {
     id: "eco-game",
     title: "Ecological Conservation Game",
-    description: "Multi-threaded C++ simulation where AI bots compete for survival under configurable ecological constraints.",
-    detail: "Built a multi-threaded, AI-driven multi-agent C++ simulation with Raylib; autonomous bots exhibit emergent behaviors under ecological constraints with a real-time game loop. Bots compete for resources under configurable constraints (food scarcity, predation, territory), producing emergent behavior from simple rule sets. Demonstrates carrying capacity, predator-prey dynamics, and resource competition through interactive simulation.",
+    description: "10,000-agent C++ simulation with spatial hashing and GPU-instanced rendering, sustaining 60+ FPS as bots evolve across generations.",
+    detail: "Built a 10,000+ agent ecological simulation in C++ with Raylib, sustaining a locked 60+ FPS across a 10,000x10,000 unit world. Used spatial hashing to cut per-frame proximity checks from O(N squared) to O(N), an Entity Component System with a Struct-of-Arrays memory layout for cache-friendly agent data, and GPU-instanced rendering to draw all 10,000 agents in a single draw call. Four species (two base, two emergent hybrids) evolve speed, size, food-collection radius, and predation capability across generations through a reproduction and interbreeding system, producing emergent multi-generational behavior with no scripted behavior trees.",
     tags: ["C++", "Raylib", "Game AI", "Multi-Agent", "Simulation"],
     github: "https://github.com/AkashGogate/EcologicalConservationBots",
     imageSrc: "/images/projects/eco-game.jpg",
@@ -461,8 +461,8 @@ export const projects: Project[] = [
   {
     id: "usta-explorer",
     title: "USTA Tournament Explorer",
-    description: "Android app for browsing and filtering USTA tennis tournaments by region, level, and surface.",
-    detail: "Built Android app in Java consuming USTA's GraphQL API to surface local tournament data via REST API; sole developer end-to-end. Uses Android SDK and HttpURLConnection to retrieve local tournament listings, registration deadlines, and location data; redirects to the USTA site for registration.",
+    description: "Android app for discovering USTA tennis tournaments with an interactive map, radius filtering, and NTRP skill-level matching.",
+    detail: "Built an Android app in Java consuming USTA's GraphQL API to surface tournament discovery data: 7+ data points per tournament (signup links, competitive level, distance from user, ball type, draw size, registration status, eligibility), an interactive map for geographic browsing, a configurable radius filter, and an NTRP skill-rating filter for finding tournaments at the right competitive level. Sole developer end-to-end.",
     tags: ["Android SDK", "Java", "GraphQL", "Mobile"],
     github: "https://github.com/AkashGogate/myUSTA",
     note: "APK available, see GitHub",
