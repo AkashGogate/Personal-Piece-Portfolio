@@ -9,8 +9,8 @@ import { doNavigate } from "@/lib/navigate";
 const BASE = process.env.NEXT_PUBLIC_BASEPATH ?? "";
 
 const links = [
-  { label: "Featured", href: "#featured-project" },
   { label: "About", href: "#about" },
+  { label: "Featured", href: "#featured-project" },
   { label: "Education", href: "#education" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },

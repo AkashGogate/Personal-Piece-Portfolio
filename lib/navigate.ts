@@ -1,3 +1,30 @@
+function instantScrollTo(top: number) {
+  const root = document.documentElement;
+  const prev = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  window.scrollTo(0, top);
+  root.style.scrollBehavior = prev;
+}
+
+// Hides `inner` while doing an instant jump to `jumpTop`, then reveals it and finishes
+// with a smooth scroll to `finalTop`. Guarded with a timeout fallback so `inner` can
+// never get stuck invisible if the rAF chain doesn't fire (e.g. Safari quirks).
+function hideJumpAndReveal(inner: HTMLElement | undefined, jumpTop: number, finalTop: number) {
+  if (inner) inner.style.opacity = "0";
+  instantScrollTo(jumpTop);
+
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    if (inner) inner.style.opacity = "";
+    window.scrollTo({ top: finalTop, behavior: "smooth" });
+  };
+
+  requestAnimationFrame(() => requestAnimationFrame(finish));
+  window.setTimeout(finish, 500);
+}
+
 export function doNavigate(href: string) {
   const targetEl = href === "#" ? null : (document.querySelector(href) as HTMLElement | null);
   const targetTop = targetEl ? targetEl.getBoundingClientRect().top + window.scrollY - 80 : 0;
@@ -11,7 +38,11 @@ export function doNavigate(href: string) {
 
     if (href === "#experience") {
       const dest = expTop - 80;
-      window.scrollTo({ top: dest, behavior: y <= dest ? "smooth" : ("instant" as ScrollBehavior) });
+      if (y <= dest) {
+        window.scrollTo({ top: dest, behavior: "smooth" });
+      } else {
+        instantScrollTo(dest);
+      }
       return;
     }
 
@@ -22,12 +53,7 @@ export function doNavigate(href: string) {
         window.scrollTo({ top: dest, behavior: "smooth" });
       } else {
         const featInner = feat.children[0] as HTMLElement | undefined;
-        if (featInner) featInner.style.opacity = "0";
-        window.scrollTo({ top: Math.max(0, featAbsTop - 1), behavior: "instant" as ScrollBehavior });
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          if (featInner) featInner.style.opacity = "";
-          window.scrollTo({ top: dest, behavior: "smooth" });
-        }));
+        hideJumpAndReveal(featInner, Math.max(0, featAbsTop - 1), dest);
       }
       return;
     }
@@ -43,12 +69,7 @@ export function doNavigate(href: string) {
 
     if (crossesExpDown) {
       const expInner = exp.children[0] as HTMLElement | undefined;
-      if (expInner) expInner.style.opacity = "0";
-      window.scrollTo({ top: expEnd + 1, behavior: "instant" as ScrollBehavior });
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (expInner) expInner.style.opacity = "";
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      }));
+      hideJumpAndReveal(expInner, expEnd + 1, targetTop);
       return;
     }
 
@@ -57,34 +78,19 @@ export function doNavigate(href: string) {
         ? Math.max(0, featTop - 1)
         : Math.max(0, expTop - 81);
       const expInner = exp.children[0] as HTMLElement | undefined;
-      if (expInner) expInner.style.opacity = "0";
-      window.scrollTo({ top: jumpTo, behavior: "instant" as ScrollBehavior });
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (expInner) expInner.style.opacity = "";
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      }));
+      hideJumpAndReveal(expInner, jumpTo, targetTop);
       return;
     }
 
     if (crossesFeatDown) {
       const featInner = feat!.children[0] as HTMLElement | undefined;
-      if (featInner) featInner.style.opacity = "0";
-      window.scrollTo({ top: featEnd + 1, behavior: "instant" as ScrollBehavior });
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (featInner) featInner.style.opacity = "";
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      }));
+      hideJumpAndReveal(featInner, featEnd + 1, targetTop);
       return;
     }
 
     if (crossesFeatUp) {
       const featInner = feat!.children[0] as HTMLElement | undefined;
-      if (featInner) featInner.style.opacity = "0";
-      window.scrollTo({ top: Math.max(0, featTop - 1), behavior: "instant" as ScrollBehavior });
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (featInner) featInner.style.opacity = "";
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      }));
+      hideJumpAndReveal(featInner, Math.max(0, featTop - 1), targetTop);
       return;
     }
   }

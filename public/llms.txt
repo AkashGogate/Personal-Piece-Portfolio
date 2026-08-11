@@ -1,6 +1,6 @@
 # Akash Gogate
 
-> CS + Biology student at UW-Madison (graduating May 2028). Building at the intersection of distributed systems and biological data science.
+> CS + Biology student at UW-Madison (graduating May 2028), working on distributed systems and biological data science.
 
 Currently building LLM agent pipelines for spatial transcriptomics research at the Kendziorski Lab. Industry experience in backend infrastructure and distributed systems at Leidos.
 

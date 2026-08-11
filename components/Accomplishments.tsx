@@ -134,7 +134,7 @@ export default function Accomplishments() {
         >
           <SectionLabel number="06" label="Accomplishments" className="mb-4" />
           <h2 className="font-display" style={{ fontSize: "clamp(2.4rem, 4vw, 3.6rem)", fontWeight: 400, color: "var(--primary)" }}>
-            Recognition along the way.
+            Recognition & Awards
           </h2>
         </m.div>
 

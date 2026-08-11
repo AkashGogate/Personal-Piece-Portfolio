@@ -254,8 +254,8 @@ export default function Skills() {
                 maxWidth: "44ch",
               }}
             >
-              Here's where I am right now. Most of it I picked up quickly on
-              real projects, and the list keeps growing.
+              Here's where I am right now. Picked up most of these through
+              working on real projects, and the list keeps growing.
             </p>
           </div>
         </m.div>
