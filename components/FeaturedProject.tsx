@@ -2,6 +2,7 @@
 import { projects } from "@/data/resume";
 import ScrollExpandMedia from "./ScrollExpandMedia";
 import { useTheme } from "./ThemeProvider";
+import { doNavigate } from "@/lib/navigate";
 
 const featured = (() => {
   const p = projects.find(p => p.id === "self-improving-agent");
@@ -29,13 +30,25 @@ export default function FeaturedProject() {
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.25rem" }}>
           {featured.tags.map(tag => (
-            <span
+            <a
               key={tag}
+              href="#skills"
               className="font-body"
-              style={{ fontSize: "0.67rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "4px 10px", border: `1px solid ${tagBorder}`, color: tagColor }}
+              style={{ fontSize: "0.67rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "4px 10px", border: `1px solid ${tagBorder}`, color: tagColor, cursor: "pointer", textDecoration: "none", transition: "color 0.2s, border-color 0.2s" }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.color = "var(--mint)";
+                el.style.borderColor = "var(--mint)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.color = tagColor;
+                el.style.borderColor = tagBorder;
+              }}
             >
               {tag}
-            </span>
+            </a>
           ))}
         </div>
         {featured.github && (
