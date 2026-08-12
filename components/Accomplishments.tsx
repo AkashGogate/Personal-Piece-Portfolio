@@ -101,8 +101,10 @@ function AccomplishmentCard({ item }: { item: (typeof accomplishments)[number] }
               Want to know more about these? See the{" "}
               <a
                 href="#skills"
-                style={{ textDecoration: "underline", color: "var(--primary)" }}
+                style={{ textDecoration: "underline", color: "var(--primary)", transition: "color 0.2s" }}
                 onClick={(e) => { e.preventDefault(); doNavigate("#skills"); }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
               >
                 Skills
               </a>{" "}

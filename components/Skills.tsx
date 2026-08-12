@@ -311,6 +311,14 @@ export default function Skills() {
                           userSelect: "none",
                         }}
                         onClick={() => setExpanded(expanded === skill.name ? null : skill.name)}
+                        onMouseEnter={(e) => {
+                          if (expanded === skill.name) return;
+                          (e.currentTarget as HTMLElement).style.color = "var(--mint)";
+                        }}
+                        onMouseLeave={(e) => {
+                          if (expanded === skill.name) return;
+                          (e.currentTarget as HTMLElement).style.color = "var(--primary)";
+                        }}
                       >
                         <span>{skill.name}</span>
                         <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>

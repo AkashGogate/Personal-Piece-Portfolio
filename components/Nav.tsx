@@ -124,8 +124,10 @@ export default function Nav() {
         <button
           type="button"
           className="font-display"
-          style={{ color: "var(--primary)", fontWeight: 600, fontSize: "1.25rem", letterSpacing: "-0.01em", background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          style={{ color: "var(--primary)", fontWeight: 600, fontSize: "1.25rem", letterSpacing: "-0.01em", background: "none", border: "none", padding: 0, cursor: "pointer", transition: "color 0.2s ease" }}
           onClick={() => navigateTo("#")}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
         >
           Akash Gogate
         </button>
@@ -170,7 +172,9 @@ export default function Nav() {
             type="button"
             onClick={toggle}
             aria-label="Toggle theme"
-            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px" }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px", transition: "color 0.2s ease" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--secondary)"; }}
           >
             {theme === "dark" ? (
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -197,7 +201,8 @@ export default function Nav() {
             type="button"
             onClick={toggle}
             aria-label="Toggle theme"
-            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px" }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--secondary)", display: "flex", alignItems: "center", padding: "4px", transition: "color 0.2s ease" }}
+            onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
           >
             {theme === "dark" ? (
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -229,8 +234,11 @@ export default function Nav() {
               background: "none",
               border: "none",
               cursor: "pointer",
+              transition: "color 0.2s ease",
             }}
             onClick={() => setOpen(!open)}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--secondary)"; }}
           >
             {open ? "Close" : "Menu"}
           </button>

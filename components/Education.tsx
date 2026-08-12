@@ -295,6 +295,14 @@ export default function Education() {
                             textAlign: "left",
                           }}
                           onClick={() => setExpanded(expanded === course.name ? null : course.name)}
+                          onMouseEnter={(e) => {
+                            if (expanded === course.name) return;
+                            (e.currentTarget as HTMLElement).style.color = "var(--mint)";
+                          }}
+                          onMouseLeave={(e) => {
+                            if (expanded === course.name) return;
+                            (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
+                          }}
                         >
                           <span>{course.name}</span>
                           <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>
@@ -401,6 +409,14 @@ export default function Education() {
                             textAlign: "left",
                           }}
                           onClick={() => setExpanded(expanded === course.name ? null : course.name)}
+                          onMouseEnter={(e) => {
+                            if (expanded === course.name) return;
+                            (e.currentTarget as HTMLElement).style.color = "var(--mint)";
+                          }}
+                          onMouseLeave={(e) => {
+                            if (expanded === course.name) return;
+                            (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
+                          }}
                         >
                           <span>{course.name}</span>
                           <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>

@@ -221,7 +221,7 @@ export default function Experience() {
                               ))}
                             </div>
                             <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.45)" }}>
-                              Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
+                              Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit", transition: "color 0.2s" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}>Skills</a> section ↗
                             </p>
                           </div>
                         )}
@@ -290,7 +290,7 @@ export default function Experience() {
                                 ))}
                               </div>
                               <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "rgba(240,240,238,0.5)" }}>
-                                Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
+                                Want to know more about these? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit", transition: "color 0.2s" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}>Skills</a> section ↗
                               </p>
                             </div>
                           )}
@@ -347,7 +347,7 @@ export default function Experience() {
                           ))}
                         </div>
                         <p className="font-body" style={{ fontSize: "0.65rem", letterSpacing: "0.08em", color: "var(--secondary)", opacity: 0.6 }}>
-                          Want to know more? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills</a> section ↗
+                          Want to know more? See the <a href="#skills" style={{ textDecoration: "underline", color: "inherit", transition: "color 0.2s" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}>Skills</a> section ↗
                         </p>
                       </div>
                     )}
@@ -367,7 +367,9 @@ export default function Experience() {
                 type="button"
                 aria-label={`Go to slide ${i + 1}`}
                 onClick={() => scrollToCard(i)}
-                style={{ width: i === current ? "18px" : "5px", height: "5px", borderRadius: "3px", background: i === current ? "var(--primary)" : "var(--border)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s" }}
+                style={{ width: i === current ? "18px" : "5px", height: "5px", borderRadius: "3px", background: i === current ? "var(--primary)" : "var(--border)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s, background 0.2s" }}
+                onMouseEnter={(e) => { if (i !== current) (e.currentTarget as HTMLElement).style.background = "var(--mint)"; }}
+                onMouseLeave={(e) => { if (i !== current) (e.currentTarget as HTMLElement).style.background = "var(--border)"; }}
               />
             ))}
           </div>

@@ -121,7 +121,10 @@ function ProjectDrawer({
                 background: "none",
                 border: "none",
                 cursor: "pointer",
+                transition: "color 0.2s",
               }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--secondary)"; }}
             >
               Close
             </button>
@@ -158,8 +161,10 @@ function ProjectDrawer({
             See more in the{" "}
             <a
               href="#skills"
-              style={{ textDecoration: "underline", color: "var(--primary)" }}
+              style={{ textDecoration: "underline", color: "var(--primary)", transition: "color 0.2s" }}
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCloseAndNavigate("#skills"); }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
             >
               Skills
             </a>{" "}
@@ -176,7 +181,10 @@ function ProjectDrawer({
                   color: "var(--primary)",
                   textDecoration: "underline",
                   textDecorationColor: "var(--border)",
+                  transition: "color 0.2s",
                 }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--primary)"; }}
               >
                 GitHub ↗
               </a>
@@ -364,7 +372,7 @@ export default function Projects() {
                           letterSpacing: "0.06em",
                         }}
                       >
-                        · <a href="#skills" style={{ textDecoration: "underline", color: "inherit", position: "relative", zIndex: 2 }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }}>Skills ↗</a>
+                        · <a href="#skills" style={{ textDecoration: "underline", color: "inherit", position: "relative", zIndex: 2, transition: "color 0.2s" }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); doNavigate("#skills"); }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--mint)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "inherit"; }}>Skills ↗</a>
                       </span>
                       <span
                         className="font-body"
@@ -384,7 +392,7 @@ export default function Projects() {
                           rel="noopener noreferrer"
                           className="font-body text-xs"
                           style={{
-                            color: "var(--secondary)",
+                            color: isMobile ? "var(--secondary)" : hoveredId === p.id ? "var(--mint)" : "var(--secondary)",
                             textDecoration: "underline",
                             textDecorationColor: "var(--border)",
                             position: "relative",
