@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
-import { education, highSchool, type CourseItem } from "@/data/resume";
+import { education, type CourseItem } from "@/data/resume";
 
 const ease = [0.19, 1, 0.22, 1] as [number, number, number, number];
 
@@ -344,119 +344,6 @@ export default function Education() {
           ))}
         </div>
 
-        <m.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4, ease }}
-          style={{ marginTop: "3rem" }}
-        >
-          <div style={{ borderTop: "1px solid var(--border)", marginBottom: "2rem" }} />
-
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h3
-              className="font-display"
-              style={{
-                fontSize: "clamp(1.2rem, 5vw, 1.6rem)",
-                fontWeight: 400,
-                color: "var(--primary)",
-                letterSpacing: "-0.01em",
-                marginBottom: "0.35rem",
-              }}
-            >
-              {highSchool.school}
-            </h3>
-            <p className="font-body" style={{ fontSize: "1.12rem", color: "var(--secondary)" }}>
-              {highSchool.period}
-            </p>
-          </div>
-
-          {highSchool.coursework.map((group, gi) => (
-            <div key={group.area} style={{ marginBottom: "1rem" }}>
-              <p
-                className="section-label"
-                style={{ borderLeft: "2px solid var(--mint)", paddingLeft: "10px", marginBottom: "1rem" }}
-              >
-                {group.area}
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-start", width: "100%" }}>
-                {group.courses.map((course, ci) => (
-                  <m.div
-                    key={course.name}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.35, delay: 0.45 + gi * 0.1 + ci * 0.04, ease }}
-                    style={{ width: "100%" }}
-                  >
-                    {isMobile ? (
-                      <>
-                        <button
-                          type="button"
-                          aria-expanded={expanded === course.name}
-                          className="font-body"
-                          style={{
-                            fontSize: "0.93rem",
-                            color: expanded === course.name ? "var(--mint)" : "var(--secondary)",
-                            lineHeight: 1.5,
-                            cursor: "pointer",
-                            userSelect: "none",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            width: "100%",
-                            background: "none",
-                            border: "none",
-                            padding: 0,
-                            textAlign: "left",
-                          }}
-                          onClick={() => setExpanded(expanded === course.name ? null : course.name)}
-                          onMouseEnter={(e) => {
-                            if (expanded === course.name) return;
-                            (e.currentTarget as HTMLElement).style.color = "var(--mint)";
-                          }}
-                          onMouseLeave={(e) => {
-                            if (expanded === course.name) return;
-                            (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
-                          }}
-                        >
-                          <span>{course.name}</span>
-                          <span style={{ fontSize: "0.6rem", color: "var(--secondary)", flexShrink: 0, marginLeft: "12px" }}>
-                            {expanded === course.name ? "▲" : "▼"}
-                          </span>
-                        </button>
-                        <AnimatePresence>
-                          {expanded === course.name && <CourseAccordionContent course={course} />}
-                        </AnimatePresence>
-                      </>
-                    ) : (
-                      <span
-                        className="font-body"
-                        style={{
-                          fontSize: "0.93rem",
-                          color: "var(--secondary)",
-                          lineHeight: 1.5,
-                          cursor: "default",
-                          userSelect: "none",
-                          display: "inline",
-                        }}
-                        onMouseEnter={(e) => {
-                          const el = e.currentTarget as HTMLElement;
-                          el.style.color = "var(--mint)";
-                          setCard({ course, rect: el.getBoundingClientRect() });
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.color = "var(--secondary)";
-                          setCard(null);
-                        }}
-                      >
-                        {course.name}
-                      </span>
-                    )}
-                  </m.div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </m.div>
 
         <m.p
           initial={{ opacity: 0 }}

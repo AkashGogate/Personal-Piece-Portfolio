@@ -284,7 +284,7 @@ export default function Skills() {
                   paddingTop: 2,
                 }}
               >
-                <p className="section-label">{group.category}</p>
+                <p className="section-label" style={{ fontSize: "0.95rem" }}>{group.category}</p>
               </div>
 
               {isMobile ? (

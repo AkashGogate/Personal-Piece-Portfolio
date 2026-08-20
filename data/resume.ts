@@ -27,6 +27,82 @@ export const education: Education = {
   honors: ["Dean's List: Fall 2024, Spring 2025, Fall 2025"],
   coursework: [
     {
+      area: "Software & Product Development",
+      courses: [
+        {
+          name: "Computer Science Capstone",
+          description: "Senior course surveying industry frameworks across game design, computer vision, machine learning, and web development. Included panels with working engineers, university professors, and college students.",
+          proficiency: 3,
+          useCase: "Earliest structured exposure to ML and applied research; sparked the trajectory into CS + Biology and the work at Inspirit AI, miRcore, and the Kendziorski Lab.",
+        },
+        {
+          name: "Android Application Development",
+          description: "Built native Android apps covering UI design patterns, activity lifecycle, data persistence, and REST API integration with real-world services.",
+          proficiency: 3,
+          useCase: "Direct foundation for the USTA Tournament Explorer, a native Android app fetching live tournament data via GraphQL and rendering it in a navigable list.",
+        },
+        {
+          name: "Virtual Reality",
+          description: "Explored VR development fundamentals including 3D scene construction, spatial interaction design, and headset SDK integration for immersive experiences.",
+          proficiency: 2,
+          useCase: "Introduced spatial computing and 3D thinking applied later in game development and simulation work at UW-Madison.",
+        },
+        {
+          name: "Game Development",
+          description: "Designed and shipped interactive games covering game loops, physics systems, entity management, collision detection, and AI agent behavior.",
+          proficiency: 3,
+          useCase: "Core preparation for the Ecological Conservation Game, a C++/Raylib real-time simulation with competing AI bots and environmental mechanics.",
+        },
+        {
+          name: "Web Development",
+          description: "Full-stack fundamentals: HTML, CSS, JavaScript, and introductory frameworks for building interactive, data-driven web applications.",
+          proficiency: 3,
+          useCase: "Groundwork for the SAT Generator React.js frontend, FastAPI backend, and this portfolio site.",
+        },
+        {
+          name: "Big Data Systems",
+          description: "Deploying distributed systems to store and analyze large datasets. Covers unstructured and structured storage, streaming data pipelines, and training ML models, primarily in Python.",
+          proficiency: 3,
+          useCase: "Extends the distributed-systems foundation behind the Kafka pipeline at Leidos and informs the system design of the Self-Improving LLM Agent.",
+        },
+      ],
+    },
+    {
+      area: "Biology",
+      courses: [
+        {
+          name: "Bioinformatics",
+          proficiency: 5,
+          description: "Sequence alignment, RNA-seq analysis, genomics pipelines, and biological databases.",
+          useCase: "Directly applied at Kendziorski lab: the pipeline integrates CARD, Seurat, and Scanpy for spatial transcriptomics analysis of glioblastoma data.",
+        },
+        {
+          name: "Computational Biology",
+          proficiency: 4,
+          description: "Mathematical modeling of biological systems, network analysis, and data-driven approaches to biology.",
+          useCase: "Shapes the system design for the LLM agent pipeline and informed the spatial deconvolution approach used with CARD.",
+        },
+        {
+          name: "Genetics",
+          proficiency: 4,
+          description: "Heredity, gene expression, mutation, and population genetics.",
+          useCase: "Foundation for interpreting microRNA expression data in the miRcore cancer detection project and gene-level results at Kendziorski.",
+        },
+        {
+          name: "Cell Biology",
+          proficiency: 3,
+          description: "Cellular structure, organelle function, signaling pathways, and the cell cycle.",
+          useCase: "Context for interpreting cell-type annotations and spatial expression patterns in the transcriptomics work.",
+        },
+        {
+          name: "Statistics for the Life Sciences",
+          proficiency: 4,
+          description: "Probability, hypothesis testing, regression, and sampling distributions, with the underlying mathematics taught alongside biological applications.",
+          useCase: "Statistical foundation for the k-fold cross-validation and p-value analysis in the miRcore cancer detection model, and for feature engineering across ML projects.",
+        },
+      ],
+    },
+    {
       area: "Computer Science",
       courses: [
         {
@@ -107,111 +183,23 @@ export const education: Education = {
           description: "Logic, proof techniques, combinatorics, graph theory, and set theory.",
           useCase: "Theoretical backbone for algorithm analysis, the ICD-10 comorbidity graph structure in Lotus Health, and formal reasoning about system correctness.",
         },
-      ],
-    },
-    {
-      area: "Biology",
-      courses: [
         {
-          name: "Bioinformatics",
-          proficiency: 5,
-          description: "Sequence alignment, RNA-seq analysis, genomics pipelines, and biological databases.",
-          useCase: "Directly applied at Kendziorski lab: the pipeline integrates CARD, Seurat, and Scanpy for spatial transcriptomics analysis of glioblastoma data.",
-        },
-        {
-          name: "Computational Biology",
+          name: "Programming I",
           proficiency: 4,
-          description: "Mathematical modeling of biological systems, network analysis, and data-driven approaches to biology.",
-          useCase: "Shapes the system design for the LLM agent pipeline and informed the spatial deconvolution approach used with CARD.",
+          description: "Java fundamentals: control flow, methods, arrays, objects, and the basics of object-oriented design.",
+          useCase: "First formal grounding in Java, the language behind my Android work including the USTA tournament app.",
         },
         {
-          name: "Genetics",
+          name: "Programming II",
           proficiency: 4,
-          description: "Heredity, gene expression, mutation, and population genetics.",
-          useCase: "Foundation for interpreting microRNA expression data in the miRcore cancer detection project and gene-level results at Kendziorski.",
+          description: "Object-oriented design in Java: inheritance, polymorphism, interfaces, recursion, and unit testing.",
+          useCase: "Shaped how I structure Android codebases, including the multi-screen state handling in the USTA tournament app.",
         },
         {
-          name: "Cell Biology",
-          proficiency: 3,
-          description: "Cellular structure, organelle function, signaling pathways, and the cell cycle.",
-          useCase: "Context for interpreting cell-type annotations and spatial expression patterns in the transcriptomics work.",
-        },
-      ],
-    },
-  ],
-};
-
-export interface HighSchoolEntry {
-  school: string;
-  period: string;
-  coursework: EducationCourseGroup[];
-}
-
-export const highSchool: HighSchoolEntry = {
-  school: "South Brunswick High School",
-  period: "September 2020 — June 2024",
-  coursework: [
-    {
-      area: "Computer Science",
-      courses: [
-        {
-          name: "Computer Science Capstone",
-          description: "Senior course surveying industry frameworks across game design, computer vision, machine learning, and web development. Included panels with working engineers, university professors, and college students.",
-          proficiency: 3,
-          useCase: "Earliest structured exposure to ML and applied research; sparked the trajectory into CS + Biology and the work at Inspirit AI, miRcore, and the Kendziorski Lab.",
-        },
-        {
-          name: "AP Computer Science A",
-          description: "Object-oriented programming in Java: classes, inheritance, data structures, and algorithmic problem solving at the AP level.",
+          name: "Programming III",
           proficiency: 4,
-          useCase: "Built the Java foundation used in the USTA Tournament Explorer Android app and early programming projects.",
-        },
-        {
-          name: "AP Computer Science Principles",
-          description: "Broad survey of computing concepts: algorithms, data, the internet, and the societal impact of technology.",
-          proficiency: 3,
-          useCase: "Introduced computational thinking and problem decomposition before diving into language-specific CS work.",
-        },
-        {
-          name: "Android Application Development",
-          description: "Built native Android apps covering UI design patterns, activity lifecycle, data persistence, and REST API integration with real-world services.",
-          proficiency: 3,
-          useCase: "Direct foundation for the USTA Tournament Explorer, a native Android app fetching live tournament data via GraphQL and rendering it in a navigable list.",
-        },
-        {
-          name: "Virtual Reality",
-          description: "Explored VR development fundamentals including 3D scene construction, spatial interaction design, and headset SDK integration for immersive experiences.",
-          proficiency: 2,
-          useCase: "Introduced spatial computing and 3D thinking applied later in game development and simulation work at UW-Madison.",
-        },
-        {
-          name: "Game Development",
-          description: "Designed and shipped interactive games covering game loops, physics systems, entity management, collision detection, and AI agent behavior.",
-          proficiency: 3,
-          useCase: "Core preparation for the Ecological Conservation Game, a C++/Raylib real-time simulation with competing AI bots and environmental mechanics.",
-        },
-        {
-          name: "Web Development",
-          description: "Full-stack fundamentals: HTML, CSS, JavaScript, and introductory frameworks for building interactive, data-driven web applications.",
-          proficiency: 3,
-          useCase: "Groundwork for the SAT Generator React.js frontend, FastAPI backend, and this portfolio site.",
-        },
-      ],
-    },
-    {
-      area: "Mathematics & Science",
-      courses: [
-        {
-          name: "AP Statistics",
-          description: "Probability, hypothesis testing, regression, sampling distributions, and statistical inference at the AP level.",
-          proficiency: 4,
-          useCase: "Statistical foundation for the k-fold cross-validation and p-value analysis in the miRcore cancer detection model, and for feature engineering in ML projects.",
-        },
-        {
-          name: "AP Biology",
-          description: "Molecular biology, genetics, evolution, ecology, and cellular processes at the AP level.",
-          proficiency: 3,
-          useCase: "Early biological context for the genomics and microRNA work at Kendziorski and miRcore, and motivation for pursuing the CS + Biology double major.",
+          description: "Advanced data structures and algorithm analysis in Java: trees, graphs, hash tables, and software design at scale.",
+          useCase: "Completes the Java sequence. Backs the data structure and algorithm choices in my Android work.",
         },
       ],
     },
@@ -254,40 +242,6 @@ export interface SkillGroup {
   category: string;
   skills: Skill[];
 }
-
-export interface ResumeVariant {
-  label: string;
-  description: string;
-  href: string;
-}
-
-export const resumeVariants: ResumeVariant[] = [
-  {
-    label: "Software Engineering",
-    description: "Optimized for backend, distributed systems, and infrastructure roles at product and defense companies.",
-    href: "/resumes/resume-swe.pdf",
-  },
-  {
-    label: "AI / ML Engineering",
-    description: "Built for ML engineering and applied AI roles focused on LLM systems, model optimization, and agentic frameworks.",
-    href: "/resumes/resume-aiml.pdf",
-  },
-  {
-    label: "Computational Biology",
-    description: "Targeted at bioinformatics, genomics, and computational biology research in academia and biotech.",
-    href: "/resumes/resume-compbio.pdf",
-  },
-  {
-    label: "HealthTech",
-    description: "Designed for clinical software and digital health companies working with EHR systems, ICD-10 data, and patient-facing applications.",
-    href: "/resumes/resume-healthtech.pdf",
-  },
-  {
-    label: "FinTech",
-    description: "Focused on quantitative engineering, financial risk modeling, and fintech companies building with large-scale actuarial datasets.",
-    href: "/resumes/resume-fintech.pdf",
-  },
-];
 
 export const experienceSections: ExperienceSection[] = [
   {
